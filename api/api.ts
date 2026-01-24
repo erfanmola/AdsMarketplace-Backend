@@ -7,13 +7,16 @@ import { pluginPools } from "./plugins/pools";
 import { routePOSTAuthorize } from "./routes/authorize";
 import { routePOSTBotWebhook } from "./routes/bot-webhook";
 import { routeGETDefault } from "./routes/default";
+import { routeGETHealth } from "./routes/health";
 
 export const initializeAPI = async () => {
 	z.object({
 		API_PORT: z.coerce.number(),
 	}).parse(import.meta.env);
 
-	const bareRoutes = new Elysia().post("/bot-webhook", routePOSTBotWebhook);
+	const bareRoutes = new Elysia()
+		.get("/health", routeGETHealth)
+		.post("/bot-webhook", routePOSTBotWebhook);
 
 	const jwtGuardedRoutes = new Elysia().use(pluginJWT);
 

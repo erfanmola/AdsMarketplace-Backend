@@ -1,16 +1,34 @@
 import { RedisClient } from "bun";
-import { createPool } from "mysql2";
+import genereicPool from "generic-pool";
+import { Pool } from "pg";
+import { health } from "../api/routes/health";
 import { env } from "./env";
+import { logger } from "./logger";
 
 export const pools = {
-	mysql: createPool({
-		host: env.MYSQL_HOST,
-		user: env.MYSQL_USER,
-		database: env.MYSQL_NAME,
-		password: env.MYSQL_PASS,
-		connectionLimit: env.POOL_SIZE_MYSQL,
-		maxIdle: 1,
-		idleTimeout: 60 * 60_000,
+	pg: new Pool({
+		host: env.PGSQL_HOST,
+		user: env.PGSQL_USER,
+		password: env.PGSQL_PASS,
+		port: env.PGSQL_PORT,
+		database: env.PGSQL_NAME,
+		idleTimeoutMillis: 60 * 60_000, // 1 hour
+		max: env.POOL_SIZE_PGSQL,
+		min: 1,
+	}).addListener("error", () => {
+		logger.error("PGSQL", "Exiting due to error");
+		health.pg = false;
 	}),
 	redis: new RedisClient(),
+	sample: genereicPool.createPool(
+		{
+			create: async () => {},
+			destroy: async () => {},
+		},
+		{
+			min: 1,
+			max: 1,
+			idleTimeoutMillis: 30_000,
+		},
+	),
 };

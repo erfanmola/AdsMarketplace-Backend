@@ -1,5 +1,6 @@
 import { sendMessage } from "nyx-bot-client";
 import client from "nyx-bot-client/nyx-client";
+import { initializeAPI } from "./api/api";
 import { handlerCallbackQueryAnalytics } from "./pipelines/callback_query/analytics";
 import { handlerCallbackQueryDefault } from "./pipelines/callback_query/default";
 import { handlerCallbackQueryFlood } from "./pipelines/callback_query/flood";
@@ -10,7 +11,6 @@ import { handlerMessageAnalytics } from "./pipelines/message/analytics";
 import { handlerMessageDefault } from "./pipelines/message/default";
 import { handlerMessageFlood } from "./pipelines/message/flood";
 import { updateAnalyticsCounter } from "./utils/analytics";
-import { handlerMessageTGCRM } from "./utils/crm";
 import { db } from "./utils/database";
 import { env } from "./utils/env";
 import { pools } from "./utils/pool";
@@ -24,7 +24,6 @@ client.initialize({
 	},
 	pipelines: {
 		message: [
-			handlerMessageTGCRM,
 			handlerMessageAnalytics,
 			handlerMessageFlood,
 			handlerMessageDefault,
@@ -46,7 +45,7 @@ client.initialize({
 		return {
 			injections: {
 				db: db,
-				mysql: pools.mysql,
+				pg: pools.pg,
 				redis: pools.redis,
 			},
 			onFinish: async () => {},
@@ -76,3 +75,5 @@ client.initialize({
 	},
 	benchmark: false,
 });
+
+initializeAPI();
