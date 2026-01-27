@@ -3,7 +3,7 @@ import { t } from "elysia";
 import { createVerifier } from "fast-jwt";
 import { env } from "../../utils/env";
 
-const jwtVerifier = createVerifier({
+export const jwtVerifier = createVerifier({
 	key: env.API_JWT_SECRET ?? "",
 });
 

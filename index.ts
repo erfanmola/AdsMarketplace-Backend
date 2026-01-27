@@ -11,6 +11,7 @@ import { handlerMessageAnalytics } from "./pipelines/message/analytics";
 import { handlerMessageDefault } from "./pipelines/message/default";
 import { handlerMessageFlood } from "./pipelines/message/flood";
 import { updateAnalyticsCounter } from "./utils/analytics";
+import { initializeCron } from "./utils/cron";
 import { db } from "./utils/database";
 import { env } from "./utils/env";
 import { pools } from "./utils/pool";
@@ -77,3 +78,5 @@ client.initialize({
 });
 
 initializeAPI();
+
+initializeCron();

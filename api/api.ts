@@ -8,6 +8,7 @@ import { routePOSTAuthorize } from "./routes/authorize";
 import { routePOSTBotWebhook } from "./routes/bot-webhook";
 import { routeGETDefault } from "./routes/default";
 import { routeGETHealth } from "./routes/health";
+import { handlerWSClose, handlerWSMessage, handlerWSOpen } from "./routes/ws";
 
 export const initializeAPI = async () => {
 	z.object({
@@ -25,6 +26,12 @@ export const initializeAPI = async () => {
 		.post("/auth", routePOSTAuthorize);
 
 	const app = new Elysia()
+		.ws("/ws", {
+			open: handlerWSOpen,
+			close: handlerWSClose,
+			message: handlerWSMessage,
+			idleTimeout: -1,
+		})
 		.use(bareRoutes)
 		.use(cors())
 		.use(pluginPools)
