@@ -10,6 +10,8 @@ import { handlerInlineQueryFlood } from "./pipelines/inline_query/flood";
 import { handlerMessageAnalytics } from "./pipelines/message/analytics";
 import { handlerMessageDefault } from "./pipelines/message/default";
 import { handlerMessageFlood } from "./pipelines/message/flood";
+import { handlerMyChatMemberAdministrator } from "./pipelines/my_chat_member/administrator";
+import { handlerMyChatMemberLeftOrKicked } from "./pipelines/my_chat_member/left";
 import { updateAnalyticsCounter } from "./utils/analytics";
 import { initializeCron } from "./utils/cron";
 import { db } from "./utils/database";
@@ -38,6 +40,10 @@ client.initialize({
 			handlerInlineQueryAnalytics,
 			handlerInlineQueryFlood,
 			handlerInlineQueryDefault,
+		],
+		my_chat_member: [
+			handlerMyChatMemberAdministrator,
+			handlerMyChatMemberLeftOrKicked,
 		],
 	},
 	injections: async () => {

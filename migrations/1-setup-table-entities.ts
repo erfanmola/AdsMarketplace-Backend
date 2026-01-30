@@ -2,8 +2,8 @@ import { type Kysely, sql } from "kysely";
 
 export async function up(db: Kysely<any>) {
 	await sql`
-    CREATE TABLE public.channels (
-      id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    CREATE TABLE public.entities (
+      id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
 
       chat_id bigint NOT NULL UNIQUE,
       username text,
@@ -27,20 +27,20 @@ export async function up(db: Kysely<any>) {
     );
 
     -- Indexes
-    CREATE INDEX channels_owner_id_idx ON public.channels (owner_id);
-    CREATE INDEX channels_helper_user_id_idx ON public.channels (helper_user_id);
-    CREATE INDEX channels_created_at_idx ON public.channels (created_at DESC);
-    CREATE INDEX channels_is_active_idx ON public.channels (is_active);
-    CREATE INDEX channels_is_verified_idx ON public.channels (is_verified);
+    CREATE INDEX entities_owner_id_idx ON public.entities (owner_id);
+    CREATE INDEX entities_helper_user_id_idx ON public.entities (helper_user_id);
+    CREATE INDEX entities_created_at_idx ON public.entities (created_at DESC);
+    CREATE INDEX entities_is_active_idx ON public.entities (is_active);
+    CREATE INDEX entities_is_verified_idx ON public.entities (is_verified);
 
     -- JSONB indexes
-    CREATE INDEX channels_categories_gin ON public.channels USING GIN (categories);
-    CREATE INDEX channels_statistic_gin ON public.channels USING GIN (statistic);
-    CREATE INDEX channels_price_gin ON public.channels USING GIN (price);
+    CREATE INDEX entities_categories_gin ON public.entities USING GIN (categories);
+    CREATE INDEX entities_statistic_gin ON public.entities USING GIN (statistic);
+    CREATE INDEX entities_price_gin ON public.entities USING GIN (price);
 
     -- Foreign key (Telegram user_id)
-    ALTER TABLE public.channels
-      ADD CONSTRAINT channels_owner_fk
+    ALTER TABLE public.entities
+      ADD CONSTRAINT entities_owner_fk
       FOREIGN KEY (owner_id)
       REFERENCES public.users(user_id)
       ON DELETE CASCADE;
@@ -54,15 +54,15 @@ export async function up(db: Kysely<any>) {
     END;
     $$ LANGUAGE plpgsql;
 
-    CREATE TRIGGER trg_channels_updated
-    BEFORE UPDATE ON public.channels
+    CREATE TRIGGER trg_entities_updated
+    BEFORE UPDATE ON public.entities
     FOR EACH ROW EXECUTE FUNCTION set_updated_at();
   `.execute(db);
 }
 
 export async function down(db: Kysely<any>) {
 	await sql`
-    DROP TABLE IF EXISTS public.channels CASCADE;
+    DROP TABLE IF EXISTS public.entities CASCADE;
     DROP FUNCTION IF EXISTS set_updated_at;
   `.execute(db);
 }

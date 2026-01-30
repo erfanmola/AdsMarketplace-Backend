@@ -23,24 +23,16 @@ export type JsonPrimitive = boolean | number | string | null;
 
 export type JsonValue = JsonArray | JsonObject | JsonPrimitive;
 
+export type Numeric = ColumnType<string, number | string, number | string>;
+
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
-export interface ChannelRequests {
-  admin_note: string | null;
-  channel_id: Int8;
-  created_at: Generated<Timestamp>;
-  id: Generated<Int8>;
-  status: Generated<number>;
-  updated_at: Generated<Timestamp>;
-  user_id: Int8;
-}
-
-export interface Channels {
+export interface Entities {
   categories: Generated<Json>;
   chat_id: Int8;
   created_at: Generated<Timestamp>;
   helper_user_id: Int8 | null;
-  id: Generated<Int8>;
+  id: Generated<string>;
   is_active: Generated<boolean>;
   is_bot_admin: Generated<boolean>;
   is_helper_admin: Generated<boolean>;
@@ -52,6 +44,51 @@ export interface Channels {
   statistic: Generated<Json>;
   updated_at: Generated<Timestamp>;
   username: string | null;
+}
+
+export interface EntityRequests {
+  admin_note: string | null;
+  created_at: Generated<Timestamp>;
+  entity_id: string;
+  id: Generated<string>;
+  status: Generated<number>;
+  updated_at: Generated<Timestamp>;
+  user_id: Int8;
+}
+
+export interface Notifications {
+  created_at: Generated<Timestamp>;
+  haptic: Generated<number>;
+  id: Generated<string>;
+  message: string;
+  seen: Generated<boolean>;
+  title: string;
+  updated_at: Generated<Timestamp>;
+  user_id: Int8;
+}
+
+export interface Offers {
+  created_at: Generated<Timestamp>;
+  duration: number | null;
+  entity_id: string;
+  from_id: Int8;
+  id: Generated<string>;
+  message_id: Int8 | null;
+  start_at: Timestamp | null;
+  status: Generated<number>;
+  type: Generated<number>;
+  updated_at: Generated<Timestamp>;
+}
+
+export interface Transactions {
+  amount: Numeric;
+  created_at: Generated<Timestamp>;
+  description: string | null;
+  from_address: string | null;
+  id: Generated<string>;
+  payload: Json | null;
+  updated_at: Generated<Timestamp>;
+  user_id: Int8;
 }
 
 export interface Users {
@@ -67,7 +104,10 @@ export interface Users {
 }
 
 export interface DB {
-  channel_requests: ChannelRequests;
-  channels: Channels;
+  entities: Entities;
+  entity_requests: EntityRequests;
+  notifications: Notifications;
+  offers: Offers;
+  transactions: Transactions;
   users: Users;
 }

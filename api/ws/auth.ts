@@ -19,12 +19,12 @@ export const handlerWSAuth = (
 		const jwt = jwtVerifier(token);
 
 		if (jwt?.user_id && jwt.exp >= Math.floor(Date.now() / 1000)) {
-			ws.data.store.user_id = jwt.user_id;
+			ws.data.store.user_id = Number(jwt.user_id);
 
 			wsSend(ws, {
 				type: "auth",
 				data: {
-					user_id: jwt.user_id,
+					user_id: jwt.user_id.toString(),
 				},
 			});
 			return;
