@@ -11,7 +11,48 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
 
 export type Int8 = ColumnType<string, bigint | number | string, bigint | number | string>;
 
+export type Json = JsonValue;
+
+export type JsonArray = JsonValue[];
+
+export type JsonObject = {
+  [x: string]: JsonValue | undefined;
+};
+
+export type JsonPrimitive = boolean | number | string | null;
+
+export type JsonValue = JsonArray | JsonObject | JsonPrimitive;
+
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
+
+export interface ChannelRequests {
+  admin_note: string | null;
+  channel_id: Int8;
+  created_at: Generated<Timestamp>;
+  id: Generated<Int8>;
+  status: Generated<number>;
+  updated_at: Generated<Timestamp>;
+  user_id: Int8;
+}
+
+export interface Channels {
+  categories: Generated<Json>;
+  chat_id: Int8;
+  created_at: Generated<Timestamp>;
+  helper_user_id: Int8 | null;
+  id: Generated<Int8>;
+  is_active: Generated<boolean>;
+  is_bot_admin: Generated<boolean>;
+  is_helper_admin: Generated<boolean>;
+  is_verified: Generated<boolean>;
+  language_code: string | null;
+  members_count: Int8 | null;
+  owner_id: Int8;
+  price: Generated<Json>;
+  statistic: Generated<Json>;
+  updated_at: Generated<Timestamp>;
+  username: string | null;
+}
 
 export interface Users {
   created_at: Generated<Timestamp>;
@@ -26,5 +67,7 @@ export interface Users {
 }
 
 export interface DB {
+  channel_requests: ChannelRequests;
+  channels: Channels;
   users: Users;
 }

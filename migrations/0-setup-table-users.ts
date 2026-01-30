@@ -2,7 +2,6 @@ import { type Kysely, sql } from "kysely";
 
 export async function up(db: Kysely<any>) {
 	await sql`
-   -- USERS
    CREATE TABLE public.users (
      id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
      user_id bigint NOT NULL UNIQUE,
