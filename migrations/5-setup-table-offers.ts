@@ -14,7 +14,7 @@ export async function up(db: Kysely<any>) {
       -- 0 = pending, 1 = accepted, -1 = rejected
       status smallint NOT NULL DEFAULT 0,
 
-      -- 0 = channel, 1 = ad, 2 = contest (extendable)
+      -- 0 = post, 1 = story
       type smallint NOT NULL DEFAULT 0,
 
       message_id bigint,

@@ -1,15 +1,16 @@
 import { type BotPipeline, NyxResponse, sendMessage } from "nyx-bot-client";
-import type { DBSchema } from "../../schema";
-import { isUserFlooding } from "../../utils/flood";
-import { t } from "../../utils/i18n";
+import type { DBSchema } from "../../../schema";
+import { isUserFlooding } from "../../../utils/flood";
+import { t } from "../../../utils/i18n";
 
-export const handlerMessageFlood: BotPipeline<"message", DBSchema> = async (
-	message,
-) => {
+export const handlerMessagePrivateFlood: BotPipeline<
+	"message",
+	DBSchema
+> = async (message) => {
 	const flooding = isUserFlooding(
 		message.chat.type,
 		message.from!.id,
-		8,
+		20,
 		60,
 		60,
 	);

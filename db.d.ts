@@ -39,6 +39,7 @@ export interface Entities {
   is_verified: Generated<boolean>;
   language_code: string | null;
   members_count: Int8 | null;
+  name: string;
   owner_id: Int8;
   price: Generated<Json>;
   statistic: Generated<Json>;
@@ -87,6 +88,7 @@ export interface Transactions {
   from_address: string | null;
   id: Generated<string>;
   payload: Json | null;
+  pending: Generated<number>;
   updated_at: Generated<Timestamp>;
   user_id: Int8;
 }

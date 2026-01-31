@@ -7,7 +7,6 @@ export async function up(db: Kysely<any>) {
 
       user_id bigint NOT NULL,
 
-      -- Can be positive or negative
       amount numeric(18, 8) NOT NULL,
 
       description text,
@@ -15,6 +14,8 @@ export async function up(db: Kysely<any>) {
       from_address text,
 
       payload jsonb,
+
+      pending smallint NOT NULL DEFAULT 0,
 
       created_at timestamptz NOT NULL DEFAULT now(),
       updated_at timestamptz NOT NULL DEFAULT now()

@@ -3,7 +3,7 @@ export type WSMessage<T, D> = {
 	data: D;
 };
 
-export type WSServerMessage = WSServerMessageAuth;
+export type WSServerMessage = WSServerMessageAuth | WSServerMessageNotification;
 
 export type WSClientMessage = WSClientMessageAuth;
 
@@ -11,6 +11,17 @@ export type WSServerMessageAuth = WSMessage<
 	"auth",
 	{
 		user_id: string;
+	}
+>;
+
+export type WSServerMessageNotification = WSMessage<
+	"notification",
+	{
+		notification: {
+			title: string;
+			message: string;
+			haptic?: "none" | "success" | "error" | "warning";
+		};
 	}
 >;
 

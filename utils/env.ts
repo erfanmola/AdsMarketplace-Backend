@@ -25,6 +25,9 @@ const envScheme = z.object({
 
 	WEBHOOK_URL: z.string().nonempty(),
 	WEBHOOK_SECRET: z.string().nonempty().optional(),
+
+	HELPER_IDS: z.string(),
+	MIN_MEMBERS_COUNT: z.coerce.number().default(1_000),
 });
 
 export const env: z.infer<typeof envScheme> = envScheme.parse(import.meta.env);

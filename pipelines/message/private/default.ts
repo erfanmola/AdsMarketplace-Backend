@@ -1,11 +1,12 @@
 import { type BotPipeline, NyxResponse, sendAnimation } from "nyx-bot-client";
-import { media } from "../../information/media";
-import type { DBSchema } from "../../schema";
-import { t } from "../../utils/i18n";
+import { media } from "../../../information/media";
+import type { DBSchema } from "../../../schema";
+import { t } from "../../../utils/i18n";
 
-export const handlerMessageDefault: BotPipeline<"message", DBSchema> = async (
-	message,
-) => {
+export const handlerMessagePrivateDefault: BotPipeline<
+	"message",
+	DBSchema
+> = async (message) => {
 	sendAnimation({
 		chat_id: message.chat!.id!,
 		animation: media.welcome.banner.file_id!,

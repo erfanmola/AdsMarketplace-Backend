@@ -45,8 +45,12 @@ export class Logger {
 		return fs.appendFile(this.filePath, log);
 	}
 
-	error(context: string, message: string) {
-		const log = this.formatMessage("ERROR", context, message);
+	error(context: string, message: string | Error) {
+		const log = this.formatMessage(
+			"ERROR",
+			context,
+			typeof message === "string" ? message : message.message,
+		);
 		if (this.console) {
 			console.error(log);
 		}

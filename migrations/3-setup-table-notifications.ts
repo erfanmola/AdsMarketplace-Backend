@@ -28,13 +28,6 @@ export async function up(db: Kysely<any>) {
     CREATE INDEX notifications_created_at_idx
       ON public.notifications (created_at DESC);
 
-    -- Foreign key (Telegram user_id)
-    ALTER TABLE public.notifications
-      ADD CONSTRAINT notifications_user_fk
-      FOREIGN KEY (user_id)
-      REFERENCES public.users(user_id)
-      ON DELETE CASCADE;
-
     -- Auto-update updated_at
     CREATE OR REPLACE FUNCTION set_notifications_updated_at()
     RETURNS trigger AS $$

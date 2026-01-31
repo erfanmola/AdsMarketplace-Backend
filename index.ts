@@ -7,9 +7,8 @@ import { handlerCallbackQueryFlood } from "./pipelines/callback_query/flood";
 import { handlerInlineQueryAnalytics } from "./pipelines/inline_query/analytics";
 import { handlerInlineQueryDefault } from "./pipelines/inline_query/default";
 import { handlerInlineQueryFlood } from "./pipelines/inline_query/flood";
-import { handlerMessageAnalytics } from "./pipelines/message/analytics";
-import { handlerMessageDefault } from "./pipelines/message/default";
-import { handlerMessageFlood } from "./pipelines/message/flood";
+import { handlerMessageGroups } from "./pipelines/message/group";
+import { handlerMessagePrivate } from "./pipelines/message/private";
 import { handlerMyChatMemberAdministrator } from "./pipelines/my_chat_member/administrator";
 import { handlerMyChatMemberLeftOrKicked } from "./pipelines/my_chat_member/left";
 import { updateAnalyticsCounter } from "./utils/analytics";
@@ -26,11 +25,7 @@ client.initialize({
 		username: env.BOT_USERNAME,
 	},
 	pipelines: {
-		message: [
-			handlerMessageAnalytics,
-			handlerMessageFlood,
-			handlerMessageDefault,
-		],
+		message: [handlerMessagePrivate, handlerMessageGroups],
 		callback_query: [
 			handlerCallbackQueryAnalytics,
 			handlerCallbackQueryFlood,

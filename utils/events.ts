@@ -1,3 +1,16 @@
+import {
+	onEntityCreated,
+	onEntityDeleted,
+	onEntityIsActiveChanged,
+	onEntityIsBotAdminChanged,
+	onEntityIsHelperAdminChanged,
+	onEntityIsVerifiedChanged,
+	onEntityMembersCountChanged,
+	onEntityNameChanged,
+	onEntityUpdated,
+	onEntityUsernameChanged,
+} from "../events/entity";
+
 type Listener<T = any> = (data: T) => void;
 
 export class EventEmitter<
@@ -28,7 +41,9 @@ export class EventEmitter<
 	}
 
 	emit<K extends keyof Events>(event: K, data: Events[K]): void {
-		this.events.get(event)?.forEach((listener) => listener(data));
+		this.events.get(event)?.forEach((listener) => {
+			listener(data);
+		});
 	}
 
 	removeAllListeners<K extends keyof Events>(event?: K): void {
@@ -48,6 +63,31 @@ export class EventEmitter<
 	}
 }
 
-export type Events = {};
+export type Events = {
+	entityCreated: { id: string };
+	entityUpdated: { id: string };
+	entityDeleted: { id: string };
+
+	entityIsActiveChanged: { id: string; old: boolean; new: boolean };
+	entityIsVerifiedChanged: { id: string; old: boolean; new: boolean };
+	entityIsBotAdminChanged: { id: string; old: boolean; new: boolean };
+	entityIsHelperAdminChanged: { id: string; old: boolean; new: boolean };
+	entityMembersCountChanged: { id: string; members_count: number };
+	entityNameChanged: { id: string; name: string };
+	entityUsernameChanged: { id: string; username?: string };
+};
 
 export const events = new EventEmitter<Events>();
+
+events.on("entityCreated", onEntityCreated);
+events.on("entityUpdated", onEntityUpdated);
+events.on("entityDeleted", onEntityDeleted);
+
+events.on("entityIsActiveChanged", onEntityIsActiveChanged);
+events.on("entityIsVerifiedChanged", onEntityIsVerifiedChanged);
+events.on("entityIsBotAdminChanged", onEntityIsBotAdminChanged);
+events.on("entityIsHelperAdminChanged", onEntityIsHelperAdminChanged);
+
+events.on("entityMembersCountChanged", onEntityMembersCountChanged);
+events.on("entityNameChanged", onEntityNameChanged);
+events.on("entityUsernameChanged", onEntityUsernameChanged);
