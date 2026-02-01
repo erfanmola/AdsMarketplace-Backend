@@ -32,6 +32,7 @@ export const jobPromoteHelperAdmin: Job<{
 		bot_token: env.BOT_TOKEN,
 
 		can_post_messages: true,
+		can_restrict_members: false,
 	});
 
 	const ok = result.ok && result.result;

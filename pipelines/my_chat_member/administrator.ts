@@ -7,6 +7,7 @@ import { jobJoinHelperAdmin } from "../../jobs/join-helper-admin";
 import { jobPromoteHelperAdmin } from "../../jobs/promote-helper-admin";
 import { jobUpdateChatInfo } from "../../jobs/update-chat-info";
 import { jobUpdateChatMembersCount } from "../../jobs/update-chat-members-count";
+import { jobUpdateChatStats } from "../../jobs/update-chat-stats";
 import type { DBSchema } from "../../schema";
 import { getRandomHelperAdminId } from "../../utils/admin";
 import { db } from "../../utils/database";
@@ -135,6 +136,13 @@ export const handlerMyChatMemberAdministrator: BotPipeline<
 				user_id: message.from.id,
 				haptic: "success",
 			});
+
+			await runJobs(
+				{
+					chat_id: Number(message.chat.id),
+				},
+				[jobUpdateChatStats],
+			);
 		}
 
 		return NyxResponse.Finish;
