@@ -47,12 +47,14 @@ export const handlerMyChatMemberLeftOrKicked: BotPipeline<
 				id: entity.id,
 			});
 
-			const client = await getClient(Number(entity.helper_user_id));
-			client?.invoke(
-				new Api.channels.LeaveChannel({
-					channel: await client.getEntity(entity.username!),
-				}),
-			);
+			if (entity.username) {
+				const client = await getClient(Number(entity.helper_user_id));
+				client?.invoke(
+					new Api.channels.LeaveChannel({
+						channel: await client.getEntity(entity.username),
+					}),
+				);
+			}
 
 			await createNotification({
 				title: t("en", "notifications.publishers.flow.add.deactivated.title"),

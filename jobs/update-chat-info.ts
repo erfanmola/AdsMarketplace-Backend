@@ -37,7 +37,11 @@ export const jobUpdateChatInfo: Job<{
 			id: entity.id,
 			username: chat.result.username,
 		});
+
+		if (chat.result.username) {
+			return JobResult.Ok;
+		}
 	}
 
-	return JobResult.Ok;
+	return JobResult.Failed;
 };

@@ -14,7 +14,7 @@ export const jobUpdateChatStats: Job<{
 		.where("chat_id", "=", params.chat_id.toString())
 		.executeTakeFirst();
 
-	if (!entity) return JobResult.Failed;
+	if (!entity?.username) return JobResult.Failed;
 
 	const client = await getClient(Number(entity.helper_user_id));
 	if (!client) return JobResult.Failed;
@@ -23,7 +23,7 @@ export const jobUpdateChatStats: Job<{
 		if (entity.type === 0) {
 			const result = await client.invoke(
 				new Api.stats.GetBroadcastStats({
-					channel: await client.getEntity(entity.username ?? ""),
+					channel: await client.getEntity(entity.username),
 					dark: true,
 				}),
 			);
@@ -45,7 +45,7 @@ export const jobUpdateChatStats: Job<{
 		} else if (entity.type === 1) {
 			const result = await client.invoke(
 				new Api.stats.GetMegagroupStats({
-					channel: await client.getEntity(entity.username ?? ""),
+					channel: await client.getEntity(entity.username),
 					dark: true,
 				}),
 			);
