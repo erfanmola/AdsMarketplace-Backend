@@ -1,5 +1,5 @@
 import { setWebhook } from "nyx-bot-client";
-import { env } from "./utils/env";
+import { env } from "../utils/env";
 
 export const initializeWebhook = async () => {
 	return setWebhook({

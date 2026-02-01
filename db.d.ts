@@ -43,6 +43,7 @@ export interface Entities {
   owner_id: Int8;
   price: Generated<Json>;
   statistic: Generated<Json>;
+  type: Generated<number>;
   updated_at: Generated<Timestamp>;
   username: string | null;
 }

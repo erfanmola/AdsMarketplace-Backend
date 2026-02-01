@@ -11,30 +11,6 @@ export const onEntityUpdated = async (data: { id: string }) => {};
 
 export const onEntityDeleted = async (data: { id: string }) => {};
 
-export const onEntityIsActiveChanged = async (data: {
-	id: string;
-	old: boolean;
-	new: boolean;
-}) => {};
-
-export const onEntityIsVerifiedChanged = async (data: {
-	id: string;
-	old: boolean;
-	new: boolean;
-}) => {};
-
-export const onEntityIsBotAdminChanged = async (data: {
-	id: string;
-	old: boolean;
-	new: boolean;
-}) => {};
-
-export const onEntityIsHelperAdminChanged = async (data: {
-	id: string;
-	old: boolean;
-	new: boolean;
-}) => {};
-
 export const onEntityMembersCountChanged = async (data: {
 	id: string;
 	members_count: number;
@@ -71,11 +47,6 @@ export const onEntityMembersCountChanged = async (data: {
 		});
 	}
 };
-
-export const onEntityNameChanged = async (data: {
-	id: string;
-	name: string;
-}) => {};
 
 export const onEntityUsernameChanged = async (data: {
 	id: string;

@@ -21,10 +21,7 @@ export const jobUpdateChatInfo: Job<{
 		bot_token: env.BOT_TOKEN,
 	});
 
-	if (
-		chat.ok &&
-		["channel", "supergroup", "group"].includes(chat.result.type)
-	) {
+	if (chat.ok && ["channel", "supergroup"].includes(chat.result.type)) {
 		await db
 			.updateTable("entities")
 			.set({
@@ -35,11 +32,6 @@ export const jobUpdateChatInfo: Job<{
 			.execute();
 
 		events.emit("entityUpdated", { id: entity.id });
-
-		events.emit("entityNameChanged", {
-			id: entity.id,
-			name: chat.result.title!,
-		});
 
 		events.emit("entityUsernameChanged", {
 			id: entity.id,

@@ -28,6 +28,9 @@ const envScheme = z.object({
 
 	HELPER_IDS: z.string(),
 	MIN_MEMBERS_COUNT: z.coerce.number().default(1_000),
+
+	TELEGRAM_API_ID: z.coerce.number(),
+	TELEGRAM_API_HASH: z.string().nonempty(),
 });
 
 export const env: z.infer<typeof envScheme> = envScheme.parse(import.meta.env);

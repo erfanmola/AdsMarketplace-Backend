@@ -1,14 +1,21 @@
-import { type BotPipeline, NyxResponse } from "nyx-bot-client";
+import { type BotPipeline, leaveChat, NyxResponse } from "nyx-bot-client";
 import type { DBSchema } from "../../schema";
-import { handlerGroupValidate } from "./group/validate";
 
-const pipelines: BotPipeline<"message", DBSchema>[] = [handlerGroupValidate];
+const pipelines: BotPipeline<"message", DBSchema>[] = [];
 
 export const handlerMessageGroups: BotPipeline<"message", DBSchema> = async (
 	message,
 	injections,
 ) => {
-	if (message.chat.type === "group" || message.chat.type === "supergroup") {
+	if (message.chat.type === "group") {
+		leaveChat({
+			chat_id: message.chat.id,
+		});
+
+		return NyxResponse.Finish;
+	}
+
+	if (message.chat.type === "supergroup") {
 		for (const handler of pipelines) {
 			const result = await handler(message, injections);
 

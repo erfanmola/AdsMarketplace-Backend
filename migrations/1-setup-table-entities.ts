@@ -4,6 +4,8 @@ export async function up(db: Kysely<any>) {
 	await sql`
     CREATE TABLE public.entities (
       id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+      -- 0=channel, 1=supergroup
+      type smallint NOT NULL DEFAULT 0,
 
       chat_id bigint NOT NULL UNIQUE,
       name text NOT NULL,

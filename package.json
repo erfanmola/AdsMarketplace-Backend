@@ -4,7 +4,10 @@
 	"type": "module",
 	"private": true,
 	"scripts": {
-		"db:types": "bunx kysely-codegen && cp ./node_modules/kysely-codegen/dist/db.d.ts ./db.d.ts"
+		"db:types": "bunx kysely-codegen && cp ./node_modules/kysely-codegen/dist/db.d.ts ./db.d.ts",
+		"migrate": "bun run scripts/migrate.ts",
+		"login": "bun run scripts/session-login.ts",
+		"webhook": "bun run scripts/webhook.ts"
 	},
 	"devDependencies": {
 		"@types/bun": "^1.3.8",

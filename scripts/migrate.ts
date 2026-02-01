@@ -1,7 +1,7 @@
 import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import { FileMigrationProvider, Migrator } from "kysely";
-import { db } from "./utils/database";
+import { db } from "../utils/database";
 
 export const runMigrations = async () => {
 	const migrator = new Migrator({
@@ -9,7 +9,7 @@ export const runMigrations = async () => {
 		provider: new FileMigrationProvider({
 			fs,
 			path,
-			migrationFolder: path.join(__dirname, "migrations/"),
+			migrationFolder: path.join(__dirname, "/../migrations/"),
 		}),
 		allowUnorderedMigrations: true,
 	});

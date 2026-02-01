@@ -15,6 +15,7 @@ import { updateAnalyticsCounter } from "./utils/analytics";
 import { initializeCron } from "./utils/cron";
 import { db } from "./utils/database";
 import { env } from "./utils/env";
+import { initializeClients } from "./utils/gramjs";
 import { pools } from "./utils/pool";
 
 client.initialize({
@@ -81,3 +82,5 @@ client.initialize({
 initializeAPI();
 
 initializeCron();
+
+initializeClients();
