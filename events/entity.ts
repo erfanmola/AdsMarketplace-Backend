@@ -60,13 +60,13 @@ export const onEntityUsernameChanged = async (data: {
 	if (!entity) return;
 
 	if (!data.username) {
-		leaveChat({
+		await leaveChat({
 			chat_id: entity.chat_id,
 			bot_api_server: env.BOT_API_SERVER,
 			bot_token: env.BOT_TOKEN,
 		});
 
-		createNotification({
+		await createNotification({
 			title: t("en", "notifications.publishers.flow.add.notPublic.title"),
 			message: t("en", "notifications.publishers.flow.add.notPublic.message", {
 				name: he.encode(entity.name),

@@ -1,11 +1,11 @@
-import type { ServerWebSocket } from "elysia/ws/bun";
+import type { ServerWebSocket } from "bun";
 import z from "zod/v3";
 import { handlerWSAuth } from "../ws/auth";
 
 export const wsConnections: ServerWebSocket<any>[] = [];
 
 export const handlerWSOpen = async (ws: ServerWebSocket<any>) => {
-	ws.data.store.created_at = Date.now();
+	ws.data.created_at = Date.now();
 	wsConnections.push(ws);
 };
 
@@ -14,7 +14,11 @@ export const handlerWSClose = (
 	code: number,
 	reason: string,
 ) => {
-	wsConnections.splice(wsConnections.indexOf(ws), 1);
+	const idx = wsConnections.indexOf(ws);
+
+	if (idx !== -1) {
+		wsConnections.splice(idx, 1);
+	}
 };
 
 const messageValidator = z.object({
@@ -22,11 +26,10 @@ const messageValidator = z.object({
 	data: z.record(z.any()),
 });
 
-export const handlerWSMessage = (
-	ws: ServerWebSocket<any>,
-	message: unknown,
-) => {
-	const { success, data } = messageValidator.safeParse(message);
+export const handlerWSMessage = (ws: ServerWebSocket<any>, message: any) => {
+	const { success, data } = messageValidator.safeParse(
+		typeof message === "string" ? JSON.parse(message) : String(message),
+	);
 
 	if (success) {
 		switch (data.type) {

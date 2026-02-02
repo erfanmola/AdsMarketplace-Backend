@@ -36,6 +36,17 @@ export const createNotification = async (notification: Notification) => {
 			})
 			.execute();
 
+		wsSendUser(notification.user_id, {
+			type: "notification",
+			data: {
+				notification: {
+					message: notification.message,
+					title: notification.title,
+					haptic: notification.haptic,
+				},
+			},
+		});
+
 		const result = await sendMessage({
 			chat_id: notification.user_id,
 			text: t("en", "notifications.structure", {
@@ -55,17 +66,6 @@ export const createNotification = async (notification: Notification) => {
 			parse_mode: "HTML",
 			bot_api_server: env.BOT_API_SERVER,
 			bot_token: env.BOT_TOKEN,
-		});
-
-		wsSendUser(notification.user_id, {
-			type: "notification",
-			data: {
-				notification: {
-					message: notification.message,
-					title: notification.title,
-					haptic: notification.haptic,
-				},
-			},
 		});
 
 		return result.ok;

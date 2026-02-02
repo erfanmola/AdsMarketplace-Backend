@@ -143,6 +143,10 @@ export const handlerMyChatMemberAdministrator: BotPipeline<
 				},
 				[jobUpdateChatStats],
 			);
+		} else {
+			await leaveChat({
+				chat_id: message.chat.id,
+			});
 		}
 
 		return NyxResponse.Finish;

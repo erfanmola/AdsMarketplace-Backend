@@ -26,11 +26,10 @@ export const initializeAPI = async () => {
 		.post("/auth", routePOSTAuthorize);
 
 	const app = new Elysia()
-		.ws("/ws", {
-			open: handlerWSOpen,
-			close: handlerWSClose,
-			message: handlerWSMessage,
-			idleTimeout: -1,
+		.get("/ws", ({ request, server }) => {
+			return server?.upgrade(request, {
+				data: {},
+			});
 		})
 		.use(bareRoutes)
 		.use(cors())
@@ -41,11 +40,21 @@ export const initializeAPI = async () => {
 			status: "failed",
 			result: "invalid-method",
 		}))
-		.listen({
-			port: env.API_PORT,
-			hostname: env.API_HOST,
-			development: false,
-		});
+		.compile();
+
+	const server = Bun.serve({
+		port: env.API_PORT,
+		hostname: env.API_HOST,
+		fetch: app.handle,
+		websocket: {
+			open: handlerWSOpen,
+			close: handlerWSClose,
+			message: handlerWSMessage,
+			idleTimeout: -1,
+		},
+	});
+
+	app.server = server;
 
 	return app;
 };
