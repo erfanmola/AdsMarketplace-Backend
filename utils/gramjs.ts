@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import { TelegramClient } from "telegram";
-import { LogLevel } from "telegram/extensions/Logger";
+import { Logger, LogLevel } from "telegram/extensions/Logger";
 import { StringSession } from "telegram/sessions";
 import { env } from "./env";
 
@@ -20,10 +20,10 @@ export const initializeClients = async () => {
 			session,
 			env.TELEGRAM_API_ID,
 			env.TELEGRAM_API_HASH,
-			{},
+			{
+				baseLogger: new Logger(LogLevel.NONE),
+			},
 		);
-
-		client.setLogLevel(LogLevel.NONE);
 
 		clientPool.set(Number(id), client);
 

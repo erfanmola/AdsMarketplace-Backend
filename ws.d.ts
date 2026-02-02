@@ -3,9 +3,19 @@ export type WSMessage<T, D> = {
 	data: D;
 };
 
-export type WSServerMessage = WSServerMessageAuth | WSServerMessageNotification;
+export type WSServerMessage =
+	| WSServerMessageAuth
+	| WSServerMessageNotification
+	| WSServerMessagePong;
 
-export type WSClientMessage = WSClientMessageAuth;
+export type WSClientMessage = WSClientMessageAuth | WSClientMessagePing;
+
+export type WSServerMessagePong = WSMessage<
+	"pong",
+	{
+		ts: number;
+	}
+>;
 
 export type WSServerMessageAuth = WSMessage<
 	"auth",
@@ -22,6 +32,13 @@ export type WSServerMessageNotification = WSMessage<
 			message: string;
 			haptic?: "none" | "success" | "error" | "warning";
 		};
+	}
+>;
+
+export type WSClientMessagePing = WSMessage<
+	"ping",
+	{
+		ts: number;
 	}
 >;
 

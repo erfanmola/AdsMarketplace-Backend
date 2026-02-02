@@ -1,6 +1,7 @@
 import type { ServerWebSocket } from "bun";
 import z from "zod/v3";
 import { handlerWSAuth } from "../ws/auth";
+import { handlerWSPing } from "../ws/ping";
 
 export const wsConnections: ServerWebSocket<any>[] = [];
 
@@ -22,7 +23,7 @@ export const handlerWSClose = (
 };
 
 const messageValidator = z.object({
-	type: z.enum(["auth"]),
+	type: z.enum(["auth", "ping"]),
 	data: z.record(z.any()),
 });
 
@@ -33,6 +34,9 @@ export const handlerWSMessage = (ws: ServerWebSocket<any>, message: any) => {
 
 	if (success) {
 		switch (data.type) {
+			case "ping":
+				handlerWSPing(ws, data.data);
+				break;
 			case "auth":
 				handlerWSAuth(ws, data.data);
 				break;

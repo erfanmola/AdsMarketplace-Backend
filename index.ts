@@ -84,3 +84,5 @@ initializeAPI();
 initializeCron();
 
 initializeClients();
+
+console.log(`Service started successfully at ${env.API_HOST}:${env.API_PORT}`);
