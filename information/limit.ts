@@ -1,5 +1,5 @@
 export const PostsPerPage = {
 	entities: {
-		owned: 2,
+		owned: 10,
 	},
 };

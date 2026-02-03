@@ -9,14 +9,19 @@ export const wsSend = (ws: ServerWebSocket<any>, message: WSServerMessage) => {
 export const findWsByUserId = (user_id: number | string) =>
 	wsConnections.find((i) => i.data.user_id === Number(user_id));
 
+export const findWsListByUserId = (user_id: number | string) =>
+	wsConnections.filter((i) => i.data.user_id === Number(user_id));
+
 export const wsSendUser = (
 	user_id: number,
 	message: WSServerMessage,
 ): boolean => {
-	const ws = findWsByUserId(user_id);
-	if (!ws) return false;
+	const wsList = findWsListByUserId(user_id);
+	if (wsList.length === 0) return false;
 
-	ws.send(JSON.stringify(message));
+	for (const ws of wsList) {
+		ws.send(JSON.stringify(message));
+	}
 
 	return true;
 };

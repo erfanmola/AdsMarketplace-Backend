@@ -4,8 +4,16 @@ import { match } from "../utils/helpers";
 export const transformOwnedEntityAPI = (
 	entity: Partial<DBSchema["entities"]>,
 ) => {
-	const { id, name, members_count, is_active, is_verified, type, chat_id } =
-		entity;
+	const {
+		id,
+		name,
+		members_count,
+		is_active,
+		is_verified,
+		type,
+		chat_id,
+		username,
+	} = entity;
 
 	return {
 		id,
@@ -22,5 +30,6 @@ export const transformOwnedEntityAPI = (
 			"channel",
 		),
 		chat_id,
+		username,
 	};
 };

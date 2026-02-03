@@ -16,6 +16,7 @@ import { match } from "../../utils/helpers";
 import { t } from "../../utils/i18n";
 import { runJobs } from "../../utils/job";
 import { createNotification } from "../../utils/notifications";
+import { wsSendUser } from "../../utils/ws";
 
 export const handlerMyChatMemberAdministrator: BotPipeline<
 	"my_chat_member",
@@ -100,8 +101,8 @@ export const handlerMyChatMemberAdministrator: BotPipeline<
 			},
 			[
 				jobCheckBotPermissions,
-				jobUpdateChatInfo,
 				jobUpdateChatMembersCount,
+				jobUpdateChatInfo,
 				jobJoinHelperAdmin,
 				jobPromoteHelperAdmin,
 			],
@@ -148,6 +149,13 @@ export const handlerMyChatMemberAdministrator: BotPipeline<
 				chat_id: message.chat.id,
 			});
 		}
+
+		wsSendUser(message.from.id, {
+			type: "refetch",
+			data: {
+				scope: "owned-entities",
+			},
+		});
 
 		return NyxResponse.Finish;
 	}

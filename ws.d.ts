@@ -6,7 +6,8 @@ export type WSMessage<T, D> = {
 export type WSServerMessage =
 	| WSServerMessageAuth
 	| WSServerMessageNotification
-	| WSServerMessagePong;
+	| WSServerMessagePong
+	| WSServerMessageRefetch;
 
 export type WSClientMessage = WSClientMessageAuth | WSClientMessagePing;
 
@@ -32,6 +33,14 @@ export type WSServerMessageNotification = WSMessage<
 			message: string;
 			haptic?: "none" | "success" | "error" | "warning";
 		};
+	}
+>;
+
+export type WSServerMessageRefetch = WSMessage<
+	"refetch",
+	{
+		scope: string;
+		params?: Record<string, any>;
 	}
 >;
 

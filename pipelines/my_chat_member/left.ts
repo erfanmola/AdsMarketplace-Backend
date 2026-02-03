@@ -6,6 +6,7 @@ import { events } from "../../utils/events";
 import { getClient } from "../../utils/gramjs";
 import { t } from "../../utils/i18n";
 import { createNotification } from "../../utils/notifications";
+import { wsSendUser } from "../../utils/ws";
 
 export const handlerMyChatMemberLeftOrKicked: BotPipeline<
 	"my_chat_member",
@@ -65,6 +66,13 @@ export const handlerMyChatMemberLeftOrKicked: BotPipeline<
 				),
 				user_id: Number(entity.owner_id),
 				haptic: "error",
+			});
+
+			wsSendUser(Number(entity.owner_id), {
+				type: "refetch",
+				data: {
+					scope: "owned-entities",
+				},
 			});
 		}
 

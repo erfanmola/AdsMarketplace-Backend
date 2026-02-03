@@ -1,4 +1,4 @@
-import { type Handler, status } from "elysia";
+import type { Handler } from "elysia";
 import type { JWTInjections, PoolInjections } from "../../../api";
 import { PostsPerPage } from "../../../information/limit";
 import { transformOwnedEntityAPI } from "../../../transformers/entities";
@@ -18,10 +18,12 @@ export const routeGETEntitiesOwned: Handler = async (ctx) => {
 			"is_verified",
 			"type",
 			"chat_id",
+			"username",
 		])
 		.where("owner_id", "=", user_id.toString())
 		.limit(PostsPerPage.entities.owned)
 		.offset(offset)
+		.orderBy("created_at", "desc")
 		.execute();
 
 	return {
