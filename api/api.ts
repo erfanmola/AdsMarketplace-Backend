@@ -7,6 +7,7 @@ import { pluginPools } from "./plugins/pools";
 import { routePOSTAuthorize } from "./routes/authorize";
 import { routePOSTBotWebhook } from "./routes/bot-webhook";
 import { routeGETDefault } from "./routes/default";
+import { routeGETEntity } from "./routes/entities/entity";
 import { routeGETEntitiesOwned } from "./routes/entities/owned";
 import { routeGETHealth } from "./routes/health";
 import { handlerWSClose, handlerWSMessage, handlerWSOpen } from "./routes/ws";
@@ -23,6 +24,7 @@ export const initializeAPI = async () => {
 	const jwtGuardedRoutes = new Elysia()
 		.use(pluginJWT)
 		// Entities
+		.get("/entities/:id", routeGETEntity)
 		.get("/entities/owned/:offset", routeGETEntitiesOwned);
 
 	const regularRoutes = new Elysia()

@@ -5,18 +5,23 @@
 
 import type { ColumnType } from "kysely";
 
-export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
-  ? ColumnType<S, I | undefined, U>
-  : ColumnType<T, T | undefined, T>;
+export type Generated<T> =
+	T extends ColumnType<infer S, infer I, infer U>
+		? ColumnType<S, I | undefined, U>
+		: ColumnType<T, T | undefined, T>;
 
-export type Int8 = ColumnType<string, bigint | number | string, bigint | number | string>;
+export type Int8 = ColumnType<
+	string,
+	bigint | number | string,
+	bigint | number | string
+>;
 
 export type Json = JsonValue;
 
 export type JsonArray = JsonValue[];
 
 export type JsonObject = {
-  [x: string]: JsonValue | undefined;
+	[x: string]: JsonValue | undefined;
 };
 
 export type JsonPrimitive = boolean | number | string | null;
@@ -28,89 +33,89 @@ export type Numeric = ColumnType<string, number | string, number | string>;
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
 export interface Entities {
-  categories: Generated<Json>;
-  chat_id: Int8;
-  created_at: Generated<Timestamp>;
-  helper_user_id: Int8 | null;
-  id: Generated<string>;
-  is_active: Generated<boolean>;
-  is_bot_admin: Generated<boolean>;
-  is_helper_admin: Generated<boolean>;
-  is_verified: Generated<boolean>;
-  language_code: string | null;
-  members_count: Int8 | null;
-  name: string;
-  owner_id: Int8;
-  price: Generated<Json>;
-  statistic: Generated<Json>;
-  type: Generated<number>;
-  updated_at: Generated<Timestamp>;
-  username: string | null;
+	categories: Generated<Json>;
+	chat_id: Int8;
+	created_at: Generated<Timestamp>;
+	helper_user_id: Int8 | null;
+	id: Generated<string>;
+	is_active: Generated<boolean>;
+	is_bot_admin: Generated<boolean>;
+	is_helper_admin: Generated<boolean>;
+	is_verified: Generated<boolean>;
+	language_code: string | null;
+	members_count: Int8 | null;
+	name: string;
+	owner_id: Int8;
+	price: Generated<Json>;
+	statistic: Generated<Json>;
+	type: Generated<number>;
+	updated_at: Generated<Timestamp>;
+	username: string | null;
 }
 
 export interface EntityRequests {
-  admin_note: string | null;
-  created_at: Generated<Timestamp>;
-  entity_id: string;
-  id: Generated<string>;
-  status: Generated<number>;
-  updated_at: Generated<Timestamp>;
-  user_id: Int8;
+	admin_note: string | null;
+	created_at: Generated<Timestamp>;
+	entity_id: string;
+	id: Generated<string>;
+	status: Generated<number>;
+	updated_at: Generated<Timestamp>;
+	user_id: Int8;
 }
 
 export interface Notifications {
-  created_at: Generated<Timestamp>;
-  haptic: Generated<number>;
-  id: Generated<string>;
-  message: string;
-  seen: Generated<boolean>;
-  title: string;
-  updated_at: Generated<Timestamp>;
-  user_id: Int8;
+	created_at: Generated<Timestamp>;
+	haptic: Generated<number>;
+	id: Generated<string>;
+	message: string;
+	seen: Generated<boolean>;
+	title: string;
+	updated_at: Generated<Timestamp>;
+	user_id: Int8;
 }
 
 export interface Offers {
-  created_at: Generated<Timestamp>;
-  duration: number | null;
-  entity_id: string;
-  from_id: Int8;
-  id: Generated<string>;
-  message_id: Int8 | null;
-  start_at: Timestamp | null;
-  status: Generated<number>;
-  type: Generated<number>;
-  updated_at: Generated<Timestamp>;
+	created_at: Generated<Timestamp>;
+	duration: number | null;
+	entity_id: string;
+	from_id: Int8;
+	id: Generated<string>;
+	message_id: Int8 | null;
+	start_at: Timestamp | null;
+	status: Generated<number>;
+	type: Generated<number>;
+	updated_at: Generated<Timestamp>;
 }
 
 export interface Transactions {
-  amount: Numeric;
-  created_at: Generated<Timestamp>;
-  description: string | null;
-  from_address: string | null;
-  id: Generated<string>;
-  payload: Json | null;
-  pending: Generated<number>;
-  updated_at: Generated<Timestamp>;
-  user_id: Int8;
+	amount: Numeric;
+	created_at: Generated<Timestamp>;
+	description: string | null;
+	from_address: string | null;
+	id: Generated<string>;
+	payload: Json | null;
+	pending: Generated<number>;
+	updated_at: Generated<Timestamp>;
+	user_id: Int8;
 }
 
 export interface Users {
-  created_at: Generated<Timestamp>;
-  first_name: string;
-  id: Generated<Int8>;
-  language: Generated<string>;
-  last_name: string | null;
-  premium: Generated<boolean>;
-  profile_photo: string | null;
-  user_id: Int8;
-  username: string | null;
+	created_at: Generated<Timestamp>;
+	first_name: string;
+	id: Generated<Int8>;
+	language: Generated<string>;
+	last_name: string | null;
+	premium: Generated<boolean>;
+	profile_photo: string | null;
+	user_id: Int8;
+	username: string | null;
 }
 
 export interface DB {
-  entities: Entities;
-  entity_requests: EntityRequests;
-  notifications: Notifications;
-  offers: Offers;
-  transactions: Transactions;
-  users: Users;
+	entities: Entities;
+	entity_requests: EntityRequests;
+	notifications: Notifications;
+	offers: Offers;
+	transactions: Transactions;
+	users: Users;
 }

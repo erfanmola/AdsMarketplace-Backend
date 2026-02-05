@@ -35,10 +35,10 @@ export const cache = async <T>(
 		const value = await generator();
 
 		try {
-         if (value !== undefined) {
-            await client.set(`${env.BOT_USERNAME}-${key}`, JSON.stringify(value));
-            await client.expire(`${env.BOT_USERNAME}-${key}`, ttlMillis / 1_000);
-         }
+			if (value !== undefined) {
+				await client.set(`${env.BOT_USERNAME}-${key}`, JSON.stringify(value));
+				await client.expire(`${env.BOT_USERNAME}-${key}`, ttlMillis / 1_000);
+			}
 		} catch {
 			// ignore set errors
 		}

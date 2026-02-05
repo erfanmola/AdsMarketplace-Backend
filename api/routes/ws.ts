@@ -12,8 +12,8 @@ export const handlerWSOpen = async (ws: ServerWebSocket<any>) => {
 
 export const handlerWSClose = (
 	ws: ServerWebSocket<any>,
-	code: number,
-	reason: string,
+	_code: number,
+	_reason: string,
 ) => {
 	const idx = wsConnections.indexOf(ws);
 

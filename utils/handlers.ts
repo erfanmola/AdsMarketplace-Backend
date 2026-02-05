@@ -1,5 +1,1 @@
-import { events } from "./events";
-
-export const initializeEventHandlers = () => {
-
-};
+export const initializeEventHandlers = () => {};

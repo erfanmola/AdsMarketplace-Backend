@@ -5,11 +5,11 @@ import { env } from "../utils/env";
 import { t } from "../utils/i18n";
 import { createNotification } from "../utils/notifications";
 
-export const onEntityCreated = async (data: { id: string }) => {};
+export const onEntityCreated = async (_data: { id: string }) => {};
 
-export const onEntityUpdated = async (data: { id: string }) => {};
+export const onEntityUpdated = async (_data: { id: string }) => {};
 
-export const onEntityDeleted = async (data: { id: string }) => {};
+export const onEntityDeleted = async (_data: { id: string }) => {};
 
 export const onEntityMembersCountChanged = async (data: {
 	id: string;
