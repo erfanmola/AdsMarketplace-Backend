@@ -18,6 +18,7 @@ export const jobPromoteHelperAdmin: Job<{
 			"helper_user_id",
 			"owner_id",
 			"name",
+			"type",
 			"is_helper_admin",
 		])
 		.where("chat_id", "=", params.chat_id.toString())
@@ -31,8 +32,8 @@ export const jobPromoteHelperAdmin: Job<{
 		bot_api_server: env.BOT_API_SERVER,
 		bot_token: env.BOT_TOKEN,
 
-		can_post_messages: true,
-		can_restrict_members: false,
+		can_post_messages: entity.type === 0 ? true : undefined,
+		can_restrict_members: entity.type === 1,
 	});
 
 	const ok = result.ok && result.result;

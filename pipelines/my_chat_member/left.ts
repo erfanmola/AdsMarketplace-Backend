@@ -50,11 +50,13 @@ export const handlerMyChatMemberLeftOrKicked: BotPipeline<
 
 			if (entity.username) {
 				const client = await getClient(Number(entity.helper_user_id));
-				client?.invoke(
-					new Api.channels.LeaveChannel({
-						channel: await client.getEntity(entity.username),
-					}),
-				);
+				client
+					?.invoke(
+						new Api.channels.LeaveChannel({
+							channel: await client.getEntity(entity.username),
+						}),
+					)
+					.catch(() => {});
 			}
 
 			await createNotification({

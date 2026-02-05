@@ -14,13 +14,23 @@ const dictionary = {
 							"The chat <b>{name}</b> is a regular group. Please add the bot to a public channel or a supergroup instead.",
 					},
 
-					insufficientPermissions: {
+					insufficientPermissionsChannel: {
 						title: "Insufficient Permissions",
 						message:
 							"Please add the bot to <b>{name}</b> as an administrator with the following permissions:\n\n" +
 							"- Post messages\n" +
 							"- Edit messages\n" +
 							"- Delete messages\n" +
+							"- Promote members",
+					},
+
+					insufficientPermissionsGroup: {
+						title: "Insufficient Permissions",
+						message:
+							"Please add the bot to <b>{name}</b> as an administrator with the following permissions:\n\n" +
+							"- Pin messages\n" +
+							"- Delete messages\n" +
+							"- Restrict members\n" +
 							"- Promote members",
 					},
 

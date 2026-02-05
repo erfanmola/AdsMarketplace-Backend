@@ -29,12 +29,27 @@ export const jobUpdateChatStats: Job<{
 			);
 
 			if (result) {
+				for (const [key, value] of Object.entries(result)) {
+					if (value.className === "StatsGraphAsync") {
+						const graph = await client.invoke(
+							new Api.stats.LoadAsyncGraph({
+								token: value.token,
+							}),
+						);
+
+						if (graph) {
+							// @ts-expect-error
+							result[key] = graph;
+						}
+					}
+				}
+
 				await db
 					.updateTable("entities")
 					.set({
 						statistic: {
 							updated_at: Date.now(),
-							data: JSON.stringify(result),
+							data: JSON.stringify({ ...result }),
 						},
 					})
 					.where("chat_id", "=", params.chat_id.toString())
@@ -51,12 +66,27 @@ export const jobUpdateChatStats: Job<{
 			);
 
 			if (result) {
+				for (const [key, value] of Object.entries(result)) {
+					if (value.className === "StatsGraphAsync") {
+						const graph = await client.invoke(
+							new Api.stats.LoadAsyncGraph({
+								token: value.token,
+							}),
+						);
+
+						if (graph) {
+							// @ts-expect-error
+							result[key] = graph;
+						}
+					}
+				}
+
 				await db
 					.updateTable("entities")
 					.set({
 						statistic: {
 							updated_at: Date.now(),
-							data: JSON.stringify(result),
+							data: JSON.stringify({ ...result }),
 						},
 					})
 					.where("chat_id", "=", params.chat_id.toString())
