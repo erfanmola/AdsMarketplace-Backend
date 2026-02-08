@@ -28,6 +28,16 @@ export const jobUpdateChatStats: Job<{
 				}),
 			);
 
+			const boosts = await client.invoke(
+				new Api.premium.GetBoostsStatus({
+					peer: await client.getEntity(entity.username),
+				}),
+			);
+
+			if (boosts) {
+				(result as any).boosts = boosts;
+			}
+
 			if (result) {
 				for (const [key, value] of Object.entries(result)) {
 					if (value.className === "StatsGraphAsync") {
@@ -64,6 +74,16 @@ export const jobUpdateChatStats: Job<{
 					dark: true,
 				}),
 			);
+
+			const boosts = await client.invoke(
+				new Api.premium.GetBoostsStatus({
+					peer: await client.getEntity(entity.username),
+				}),
+			);
+
+			if (boosts) {
+				(result as any).boosts = boosts;
+			}
 
 			if (result) {
 				for (const [key, value] of Object.entries(result)) {

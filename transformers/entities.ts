@@ -136,6 +136,7 @@ export const transformEntityChannelCharts = (
 	if (!statistic) return undefined;
 
 	const {
+		boosts,
 		period,
 		followers,
 		viewsPerPost,
@@ -179,6 +180,10 @@ export const transformEntityChannelCharts = (
 	}
 
 	return {
+		premiumAudience: {
+			part: boosts?.premiumAudience?.part,
+			total: boosts?.premiumAudience?.total,
+		},
 		period: {
 			minDate: period.minDate,
 			maxDate: period.maxDate,
@@ -223,7 +228,8 @@ export const transformEntityGroupCharts = (
 	const statistic = JSON.parse((stats as any).data);
 	if (!statistic) return undefined;
 
-	const { period, members, messages, viewers, posters } = statistic as any;
+	const { boosts, period, members, messages, viewers, posters } =
+		statistic as any;
 
 	const graphs = {
 		growthGraph: undefined,
@@ -254,6 +260,10 @@ export const transformEntityGroupCharts = (
 	}
 
 	return {
+		premiumAudience: {
+			part: boosts?.premiumAudience?.part,
+			total: boosts?.premiumAudience?.total,
+		},
 		period: {
 			minDate: period.minDate,
 			maxDate: period.maxDate,
