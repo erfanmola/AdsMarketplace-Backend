@@ -1,6 +1,8 @@
 import type { Handler } from "elysia";
 import { createSigner } from "fast-jwt";
 import type { PoolInjections } from "../../api";
+import { CategoriesMapped } from "../../information/categories";
+import { LanguagesMapped } from "../../information/languages";
 import { transformUserAPI } from "../../transformers/user";
 import { env } from "../../utils/env";
 import { compareObjects } from "../../utils/object";
@@ -12,7 +14,7 @@ const jwtSigner = createSigner({
 });
 
 export const routePOSTAuthorize: Handler = async (ctx) => {
-	const initData = JSON.parse((ctx.body as any).initDataUnsafe ?? "");
+	const initData = (ctx.body as any).initDataUnsafe;
 
 	if (initData) {
 		initData.user =
@@ -80,6 +82,8 @@ export const routePOSTAuthorize: Handler = async (ctx) => {
 			return {
 				status: "success",
 				result: {
+					categories: CategoriesMapped.en,
+					languages: LanguagesMapped.en,
 					token: jwtSigner({
 						user_id: initData.user.id,
 					}),

@@ -9,6 +9,7 @@ import { routePOSTBotWebhook } from "./routes/bot-webhook";
 import { routeGETDefault } from "./routes/default";
 import { routeGETEntity } from "./routes/entities/entity";
 import { routeGETEntitiesOwned } from "./routes/entities/owned";
+import { routePOSTEntityUpdate } from "./routes/entities/update";
 import { routeGETHealth } from "./routes/health";
 import { handlerWSClose, handlerWSMessage, handlerWSOpen } from "./routes/ws";
 
@@ -25,6 +26,7 @@ export const initializeAPI = async () => {
 		.use(pluginJWT)
 		// Entities
 		.get("/entities/:id", routeGETEntity)
+		.post("/entities/:id/update", routePOSTEntityUpdate)
 		.get("/entities/owned/:offset", routeGETEntitiesOwned);
 
 	const regularRoutes = new Elysia()

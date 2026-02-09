@@ -10,6 +10,8 @@ const dictionaries = {
 type Languages = keyof typeof dictionaries;
 type TranslationKey = NestedPaths<Dictionary>;
 
+export type Locales = Languages;
+
 function getValue(obj: any, path: string): string {
 	return path.split(".").reduce((acc, part) => acc?.[part], obj);
 }

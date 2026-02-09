@@ -14,7 +14,7 @@ export async function up(db: Kysely<any>) {
       language_code text,
       owner_id bigint NOT NULL,
 
-      categories jsonb NOT NULL DEFAULT '[]',
+      category text,
       helper_user_id bigint,
 
       is_bot_admin boolean NOT NULL DEFAULT false,
@@ -32,12 +32,12 @@ export async function up(db: Kysely<any>) {
     -- Indexes
     CREATE INDEX entities_owner_id_idx ON public.entities (owner_id);
     CREATE INDEX entities_helper_user_id_idx ON public.entities (helper_user_id);
+    CREATE INDEX entities_category_idx ON public.entities (category);
     CREATE INDEX entities_created_at_idx ON public.entities (created_at DESC);
     CREATE INDEX entities_is_active_idx ON public.entities (is_active);
     CREATE INDEX entities_is_verified_idx ON public.entities (is_verified);
 
     -- JSONB indexes
-    CREATE INDEX entities_categories_gin ON public.entities USING GIN (categories);
     CREATE INDEX entities_statistic_gin ON public.entities USING GIN (statistic);
     CREATE INDEX entities_price_gin ON public.entities USING GIN (price);
 

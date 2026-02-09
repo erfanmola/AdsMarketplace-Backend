@@ -16,19 +16,21 @@ export const handlerWSAuth = (
 	if (success) {
 		const { token } = data;
 
-		const jwt = jwtVerifier(token);
+		try {
+			const jwt = jwtVerifier(token);
 
-		if (jwt?.user_id && jwt.exp >= Math.floor(Date.now() / 1000)) {
-			ws.data.user_id = Number(jwt.user_id);
+			if (jwt?.user_id && jwt.exp >= Math.floor(Date.now() / 1000)) {
+				ws.data.user_id = Number(jwt.user_id);
 
-			wsSend(ws, {
-				type: "auth",
-				data: {
-					user_id: jwt.user_id.toString(),
-				},
-			});
-			return;
-		}
+				wsSend(ws, {
+					type: "auth",
+					data: {
+						user_id: jwt.user_id.toString(),
+					},
+				});
+				return;
+			}
+		} catch (_) {}
 	}
 
 	ws.terminate();

@@ -47,6 +47,8 @@ export const transformEntityAPI = (entity: Partial<DBSchema["entities"]>) => {
 		chat_id,
 		username,
 		statistic,
+		category,
+		language_code,
 	} = entity;
 
 	const typeString = match(
@@ -78,6 +80,8 @@ export const transformEntityAPI = (entity: Partial<DBSchema["entities"]>) => {
 		chat_id,
 		username,
 		statistic: transformedStats,
+		category,
+		language_code,
 	};
 };
 
@@ -94,6 +98,8 @@ export const transformEntityOwnerAPI = (
 		chat_id,
 		username,
 		statistic,
+		category,
+		language_code,
 	} = entity;
 
 	const typeString = match(
@@ -124,6 +130,8 @@ export const transformEntityOwnerAPI = (
 		chat_id,
 		username,
 		statistic: transformedStats,
+		category,
+		language_code,
 	};
 };
 
