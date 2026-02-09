@@ -28,6 +28,7 @@ export type Numeric = ColumnType<string, number | string, number | string>;
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
 export interface Entities {
+  ads: Generated<Json>;
   category: string | null;
   chat_id: Int8;
   created_at: Generated<Timestamp>;
@@ -41,7 +42,6 @@ export interface Entities {
   members_count: Int8 | null;
   name: string;
   owner_id: Int8;
-  price: Generated<Json>;
   statistic: Generated<Json>;
   type: Generated<number>;
   updated_at: Generated<Timestamp>;

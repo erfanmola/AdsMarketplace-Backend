@@ -49,6 +49,7 @@ export const transformEntityAPI = (entity: Partial<DBSchema["entities"]>) => {
 		statistic,
 		category,
 		language_code,
+		ads: ad,
 	} = entity;
 
 	const typeString = match(
@@ -69,6 +70,8 @@ export const transformEntityAPI = (entity: Partial<DBSchema["entities"]>) => {
 		undefined,
 	);
 
+	const ads = transformEntityAd(Number(type), ad as any);
+
 	return {
 		id,
 		name,
@@ -82,6 +85,7 @@ export const transformEntityAPI = (entity: Partial<DBSchema["entities"]>) => {
 		statistic: transformedStats,
 		category,
 		language_code,
+		ads,
 	};
 };
 
@@ -100,6 +104,7 @@ export const transformEntityOwnerAPI = (
 		statistic,
 		category,
 		language_code,
+		ads: ad,
 	} = entity;
 
 	const typeString = match(
@@ -119,6 +124,8 @@ export const transformEntityOwnerAPI = (
 		transformedStats = transformEntityGroupCharts(statistic);
 	}
 
+	const ads = transformEntityAd(Number(type), ad as any);
+
 	return {
 		id,
 		name,
@@ -132,6 +139,7 @@ export const transformEntityOwnerAPI = (
 		statistic: transformedStats,
 		category,
 		language_code,
+		ads,
 	};
 };
 
@@ -294,4 +302,69 @@ export const transformEntityGroupCharts = (
 		},
 		...graphs,
 	};
+};
+
+export type EntityAd = {
+	type: "channel-post" | "channel-story" | "group-pin";
+	active: boolean;
+	period: {
+		unit: number;
+		max: number;
+	};
+	price: {
+		perHour: number;
+	};
+};
+
+export type EntityAds = Record<EntityAd["type"], EntityAd>;
+
+export const transformEntityAd = (
+	type: number,
+	ads: Partial<EntityAds>,
+): EntityAds => {
+	if (type === 0) {
+		if (!("channel-post" in ads)) {
+			ads["channel-post"] = {
+				type: "channel-post",
+				active: false,
+				period: {
+					unit: 12,
+					max: 48,
+				},
+				price: {
+					perHour: 1,
+				},
+			};
+		}
+
+		if (!("channel-story" in ads)) {
+			ads["channel-story"] = {
+				type: "channel-story",
+				active: false,
+				period: {
+					unit: 12,
+					max: 24,
+				},
+				price: {
+					perHour: 1,
+				},
+			};
+		}
+	} else if (type === 1) {
+		if (!("group-pin" in ads)) {
+			ads["group-pin"] = {
+				type: "group-pin",
+				active: false,
+				period: {
+					unit: 12,
+					max: 72,
+				},
+				price: {
+					perHour: 1,
+				},
+			} satisfies EntityAd;
+		}
+	}
+
+	return ads as EntityAds;
 };

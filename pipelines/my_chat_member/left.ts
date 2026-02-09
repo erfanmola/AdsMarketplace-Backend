@@ -33,6 +33,8 @@ export const handlerMyChatMemberLeftOrKicked: BotPipeline<
 			.executeTakeFirst();
 
 		if (entity) {
+			// TODO: Disable all ad types
+
 			await db
 				.updateTable("entities")
 				.set({

@@ -3,6 +3,7 @@ import { createSigner } from "fast-jwt";
 import type { PoolInjections } from "../../api";
 import { CategoriesMapped } from "../../information/categories";
 import { LanguagesMapped } from "../../information/languages";
+import { Limits } from "../../information/limit";
 import { transformUserAPI } from "../../transformers/user";
 import { env } from "../../utils/env";
 import { compareObjects } from "../../utils/object";
@@ -84,6 +85,7 @@ export const routePOSTAuthorize: Handler = async (ctx) => {
 				result: {
 					categories: CategoriesMapped.en,
 					languages: LanguagesMapped.en,
+					limits: Limits,
 					token: jwtSigner({
 						user_id: initData.user.id,
 					}),

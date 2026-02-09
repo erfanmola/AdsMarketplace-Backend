@@ -23,7 +23,7 @@ export async function up(db: Kysely<any>) {
       is_verified boolean NOT NULL DEFAULT false,
 
       statistic jsonb NOT NULL DEFAULT '{}',
-      price jsonb NOT NULL DEFAULT '{}',
+      ads jsonb NOT NULL DEFAULT '{}',
 
       created_at timestamptz NOT NULL DEFAULT now(),
       updated_at timestamptz NOT NULL DEFAULT now()
@@ -39,7 +39,7 @@ export async function up(db: Kysely<any>) {
 
     -- JSONB indexes
     CREATE INDEX entities_statistic_gin ON public.entities USING GIN (statistic);
-    CREATE INDEX entities_price_gin ON public.entities USING GIN (price);
+    CREATE INDEX entities_ads_gin ON public.entities USING GIN (ads);
 
     -- Auto-update updated_at
     CREATE OR REPLACE FUNCTION set_updated_at()
