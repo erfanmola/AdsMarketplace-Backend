@@ -13,10 +13,7 @@ export const Languages = [
 	"da",
 	"de",
 	"el",
-	"en_US",
-	"en_GB",
 	"es",
-	"es_419",
 	"et",
 	"fa",
 	"fi",
@@ -43,12 +40,10 @@ export const Languages = [
 	"mk",
 	"mn",
 	"ms",
-	"nb",
 	"nl",
 	"no",
 	"pl",
 	"pt",
-	"pt_BR",
 	"ro",
 	"ru",
 	"si",
@@ -68,8 +63,6 @@ export const Languages = [
 	"uz",
 	"vi",
 	"zh",
-	"zh_CN",
-	"zh_TW",
 ] as const;
 
 export const LanguagesMapped: Record<Locales, { [key: string]: string }> = {
