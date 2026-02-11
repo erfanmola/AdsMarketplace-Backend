@@ -5,6 +5,12 @@ export const PostsPerPage = {
 };
 
 export const Limits = {
+	campaigns: {
+		name: {
+			minLength: 3,
+			maxLength: 24,
+		},
+	},
 	adType: {
 		price: {
 			perHour: {

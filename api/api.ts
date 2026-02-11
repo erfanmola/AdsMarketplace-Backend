@@ -6,6 +6,7 @@ import { pluginJWT } from "./plugins/jwt";
 import { pluginPools } from "./plugins/pools";
 import { routePOSTAuthorize } from "./routes/authorize";
 import { routePOSTBotWebhook } from "./routes/bot-webhook";
+import { routePOSTCampaignsCreate } from "./routes/campaigns/create";
 import { routeGETDefault } from "./routes/default";
 import { routeGETEntity } from "./routes/entities/entity";
 import { routeGETEntitiesOwned } from "./routes/entities/owned";
@@ -27,7 +28,12 @@ export const initializeAPI = async () => {
 		// Entities
 		.get("/entities/:id", routeGETEntity)
 		.post("/entities/:id/update", routePOSTEntityUpdate)
-		.get("/entities/owned/:offset", routeGETEntitiesOwned);
+		.get("/entities/owned/:offset", routeGETEntitiesOwned)
+
+		// Campaigns;
+		// .get("/campaigns/:id", routeGETCampaign)
+		// .get("/campaigns/owned/:offset", routeGETCampaignsOwned)
+		.post("/campaigns/create", routePOSTCampaignsCreate);
 
 	const regularRoutes = new Elysia()
 		.get("/", routeGETDefault)
