@@ -11,13 +11,16 @@ export async function up(db: Kysely<any>) {
       -- channel / entity the offer is for
       entity_id uuid NOT NULL,
 
-      -- 0 = pending, 1 = accepted, -1 = rejected
+      -- campaign offer is for
+      campaign_id uuid NOT NULL,
+
+      -- 0 = pending, 1 = accepted, -1 = rejected, 2 = final
       status smallint NOT NULL DEFAULT 0,
 
-      -- 0 = post, 1 = story
-      type smallint NOT NULL DEFAULT 0,
+      price bigint NOT NULL,
 
-      message_id bigint,
+      -- AdType
+      type text NOT NULL,
 
       -- duration in seconds
       duration integer,
@@ -31,6 +34,7 @@ export async function up(db: Kysely<any>) {
     -- Indexes
     CREATE INDEX offers_from_id_idx ON public.offers (from_id);
     CREATE INDEX offers_entity_id_idx ON public.offers (entity_id);
+    CREATE INDEX offers_campaign_id_idx ON public.offers (campaign_id);
     CREATE INDEX offers_status_idx ON public.offers (status);
     CREATE INDEX offers_type_idx ON public.offers (type);
     CREATE INDEX offers_created_at_idx
@@ -49,6 +53,12 @@ export async function up(db: Kysely<any>) {
       ON DELETE CASCADE;
 
     ALTER TABLE public.offers
+      ADD CONSTRAINT offers_campaign_fk
+      FOREIGN KEY (campaign_id)
+      REFERENCES public.campaigns(id)
+      ON DELETE CASCADE;
+
+   ALTER TABLE public.offers
       ADD CONSTRAINT offers_entity_fk
       FOREIGN KEY (entity_id)
       REFERENCES public.entities(id)

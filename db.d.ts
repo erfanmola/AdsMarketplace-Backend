@@ -23,9 +23,18 @@ export type JsonPrimitive = boolean | number | string | null;
 
 export type JsonValue = JsonArray | JsonObject | JsonPrimitive;
 
-export type Numeric = ColumnType<string, number | string, number | string>;
-
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
+
+export interface Campaigns {
+  category: string | null;
+  created_at: Generated<Timestamp>;
+  id: Generated<string>;
+  language_code: string | null;
+  message_id: Int8 | null;
+  name: string;
+  owner_id: Int8;
+  updated_at: Generated<Timestamp>;
+}
 
 export interface Entities {
   ads: Generated<Json>;
@@ -48,16 +57,6 @@ export interface Entities {
   username: string | null;
 }
 
-export interface EntityRequests {
-  admin_note: string | null;
-  created_at: Generated<Timestamp>;
-  entity_id: string;
-  id: Generated<string>;
-  status: Generated<number>;
-  updated_at: Generated<Timestamp>;
-  user_id: Int8;
-}
-
 export interface Notifications {
   created_at: Generated<Timestamp>;
   haptic: Generated<number>;
@@ -70,20 +69,21 @@ export interface Notifications {
 }
 
 export interface Offers {
+  campaign_id: string;
   created_at: Generated<Timestamp>;
   duration: number | null;
   entity_id: string;
   from_id: Int8;
   id: Generated<string>;
-  message_id: Int8 | null;
+  price: Int8;
   start_at: Timestamp | null;
   status: Generated<number>;
-  type: Generated<number>;
+  type: string;
   updated_at: Generated<Timestamp>;
 }
 
 export interface Transactions {
-  amount: Numeric;
+  amount: Int8;
   created_at: Generated<Timestamp>;
   description: string | null;
   from_address: string | null;
@@ -106,11 +106,22 @@ export interface Users {
   username: string | null;
 }
 
+export interface VerificationRequests {
+  admin_note: string | null;
+  created_at: Generated<Timestamp>;
+  entity_id: string;
+  id: Generated<string>;
+  status: Generated<number>;
+  updated_at: Generated<Timestamp>;
+  user_id: Int8;
+}
+
 export interface DB {
+  campaigns: Campaigns;
   entities: Entities;
-  entity_requests: EntityRequests;
   notifications: Notifications;
   offers: Offers;
   transactions: Transactions;
   users: Users;
+  verification_requests: VerificationRequests;
 }

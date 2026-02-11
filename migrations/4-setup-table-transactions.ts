@@ -7,7 +7,7 @@ export async function up(db: Kysely<any>) {
 
       user_id bigint NOT NULL,
 
-      amount numeric(18, 8) NOT NULL,
+      amount bigint NOT NULL,
 
       description text,
 
