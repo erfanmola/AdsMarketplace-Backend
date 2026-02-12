@@ -2,6 +2,7 @@ import { sendMessage } from "nyx-bot-client";
 import client from "nyx-bot-client/nyx-client";
 import { initializeAPI } from "./api/api";
 import { handlerCallbackQueryAnalytics } from "./pipelines/callback_query/analytics";
+import { handlerCallbackQueryCampaign } from "./pipelines/callback_query/campaign";
 import { handlerCallbackQueryDefault } from "./pipelines/callback_query/default";
 import { handlerCallbackQueryFlood } from "./pipelines/callback_query/flood";
 import { handlerInlineQueryAnalytics } from "./pipelines/inline_query/analytics";
@@ -30,6 +31,7 @@ client.initialize({
 		callback_query: [
 			handlerCallbackQueryAnalytics,
 			handlerCallbackQueryFlood,
+			handlerCallbackQueryCampaign,
 			handlerCallbackQueryDefault,
 		],
 		inline_query: [

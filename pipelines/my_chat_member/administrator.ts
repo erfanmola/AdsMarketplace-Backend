@@ -2,6 +2,7 @@ import he from "he";
 import type { Insertable } from "kysely";
 import { type BotPipeline, leaveChat, NyxResponse } from "nyx-bot-client";
 import type { DB } from "../../db";
+import { ExclusiveChats } from "../../information/chats";
 import { jobCheckBotPermissions } from "../../jobs/check-bot-permissions";
 import { jobJoinHelperAdmin } from "../../jobs/join-helper-admin";
 import { jobPromoteHelperAdmin } from "../../jobs/promote-helper-admin";
@@ -23,6 +24,9 @@ export const handlerMyChatMemberAdministrator: BotPipeline<
 	DBSchema
 > = async (message) => {
 	if (message.new_chat_member.status === "administrator") {
+		if (Object.values(ExclusiveChats).includes(message.chat.id))
+			return NyxResponse.Finish;
+
 		if (!["channel", "supergroup"].includes(message.chat.type)) {
 			await leaveChat({
 				chat_id: message.chat.id,

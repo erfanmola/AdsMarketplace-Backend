@@ -1,7 +1,33 @@
+import { CustomEmojiPacks } from "../information/emoji";
+
 const dictionary = {
 	general: {
 		greet: "Hello {name}!",
 		flood: "Due to spam, we are unable to respond to your request.",
+	},
+	message: {
+		private: {
+			commands: {
+				campaignBanner: {
+					text: `<tg-emoji emoji-id="${CustomEmojiPacks.duck.organizingShelves}">🗃️</tg-emoji> Please send your banner.\n\nYou can upload text, a photo, or a video.\n\nTo cancel, use /start.`,
+					success: {
+						text: `<tg-emoji emoji-id="${CustomEmojiPacks.duck.enjoyDrink}">🎉</tg-emoji> Your banner is live!\n\nHead back to the app and start sending offers to channels.`,
+						button: "View Campaign",
+					},
+					confirm: {
+						text: `<tg-emoji emoji-id="${CustomEmojiPacks.duck.confirm}">✅</tg-emoji> Do you confirm that you want to set this banner for the campaign?`,
+						confirm: "Confirm",
+						cancel: "Cancel",
+					},
+					errors: {
+						active: `<tg-emoji emoji-id="${CustomEmojiPacks.duck.detective}">🕵️‍♂️</tg-emoji> This campaign already has a banner.`,
+						invalid: `<tg-emoji emoji-id="${CustomEmojiPacks.duck.forbidden}">🚫</tg-emoji> This campaign doesn’t exist.`,
+						invalidType: `<tg-emoji emoji-id="${CustomEmojiPacks.duck.forbidden}">🚫</tg-emoji> That doesn’t look like a valid banner. Please send text, a photo, or a video.\n\nTo cancel, use /start.`,
+						mediaGroup: `<tg-emoji emoji-id="${CustomEmojiPacks.duck.forbidden}">🚫</tg-emoji> We don’t support media groups at the moment. Please send text, a photo, or a video.\n\nTo cancel, use /start.`,
+					},
+				},
+			},
+		},
 	},
 	notifications: {
 		structure: "{emoji} <b>{title}</b>\n\n{message}",

@@ -1,4 +1,4 @@
-import { sendMessage } from "nyx-bot-client";
+import { AnimatedEmojis, sendMessage } from "nyx-bot-client";
 import { db } from "./database";
 import { env } from "./env";
 import { match } from "./helpers";
@@ -55,12 +55,24 @@ export const createNotification = async (notification: Notification) => {
 				emoji: match(
 					notification.haptic,
 					[
-						["none", "🔔"],
-						["success", "✅"],
-						["warning", "⚠️"],
-						["error", "❌"],
+						[
+							"none",
+							`<tg-emoji emoji-id="${AnimatedEmojis["🔔"]}">🔔</tg-emoji>`,
+						],
+						[
+							"success",
+							`<tg-emoji emoji-id="${AnimatedEmojis["✅"]}">✅</tg-emoji>`,
+						],
+						[
+							"warning",
+							`<tg-emoji emoji-id="${AnimatedEmojis["‼️"]}">‼️</tg-emoji>`,
+						],
+						[
+							"error",
+							`<tg-emoji emoji-id="${AnimatedEmojis["❌"]}">❌</tg-emoji>`,
+						],
 					],
-					"🔔",
+					`<tg-emoji emoji-id="${AnimatedEmojis["🔔"]}">🔔</tg-emoji>`,
 				),
 			}),
 			parse_mode: "HTML",

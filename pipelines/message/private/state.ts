@@ -1,7 +1,10 @@
 import { type BotPipeline, NyxResponse } from "nyx-bot-client";
 import type { DBSchema } from "../../../schema";
+import { handlerPrivateStateCampaignBanner } from "./state/campaign-banner";
 
-const pipelines: BotPipeline<"message", DBSchema>[] = [];
+const pipelines: BotPipeline<"message", DBSchema>[] = [
+	handlerPrivateStateCampaignBanner,
+];
 
 export const handlerMessagePrivateStates: BotPipeline<
 	"message",

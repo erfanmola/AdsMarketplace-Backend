@@ -2,6 +2,9 @@ export const PostsPerPage = {
 	entities: {
 		owned: 10,
 	},
+	campaigns: {
+		owned: 10,
+	},
 };
 
 export const Limits = {

@@ -31,6 +31,9 @@ const envScheme = z.object({
 
 	TELEGRAM_API_ID: z.coerce.number(),
 	TELEGRAM_API_HASH: z.string().nonempty(),
+
+	ARCHIVE_CHAT_ID: z.coerce.number(),
+	MINIAPP_SLUG: z.string().nonempty(),
 });
 
 export const env: z.infer<typeof envScheme> = envScheme.parse(import.meta.env);
