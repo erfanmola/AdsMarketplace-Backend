@@ -6,12 +6,15 @@ export async function up(db: Kysely<any>) {
       id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
 
       name text NOT NULL,
+      description text,
       language_code text,
       owner_id bigint NOT NULL,
 
       category text,
 
       message_id bigint,
+
+      is_active boolean NOT NULL DEFAULT true,
 
       created_at timestamptz NOT NULL DEFAULT now(),
       updated_at timestamptz NOT NULL DEFAULT now()

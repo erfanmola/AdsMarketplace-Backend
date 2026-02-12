@@ -11,59 +11,31 @@ import { db } from "../../../utils/database";
 const schema = z.object({
 	category: z.enum(["none", ...Categories]).optional(),
 	language_code: z.enum(["none", ...Languages]).optional(),
-	ads: z
-		.record(
-			z.enum(["channel-post", "channel-story", "group-pin"]),
-			z
-				.object({
-					type: z.enum(["channel-post", "channel-story", "group-pin"]),
-					active: z.boolean(),
-					period: z.object({
-						unit: z.union([
-							z.literal(1), // 1 Hour
-							z.literal(2), // 2 Hours
-							z.literal(3), // 3 Hours
-							z.literal(4), // 4 Hours
-							z.literal(6), // 6 Hours
-							z.literal(8), // 8 Hours
-							z.literal(12), // 12 Hours
-							z.literal(24), // 24 Hours
-						]),
-						max: z.union([
-							z.literal(24), // 24 Hours
-							z.literal(48), // 48 Hours
-							z.literal(72), // 72 Hours
-							z.literal(96), // 96 Hours
-							z.literal(120), // 120 Hours
-							z.literal(144), // 144 Hours
-							z.literal(168), // 168 Hours
-							z.literal(192), // 192 Hours
-						]),
-					}),
-					price: z.object({
-						perHour: z.coerce
-							.number()
-							.min(Limits.adType.price.perHour.min)
-							.max(Limits.adType.price.perHour.max),
-					}),
-				})
-				.optional(),
-		)
+	name: z
+		.string()
+		.min(Limits.campaigns.name.minLength)
+		.max(Limits.campaigns.name.maxLength)
 		.optional(),
+	description: z
+		.string()
+		.min(Limits.campaigns.description.minLength)
+		.max(Limits.campaigns.description.maxLength)
+		.optional(),
+	is_active: z.stringbool().optional(),
 });
 
-export const routePOSTEntityUpdate: Handler = async (ctx) => {
+export const routePOSTCampaignsUpdate: Handler = async (ctx) => {
 	const { user_id }: JWTInjections & PoolInjections = ctx as any;
 	const params = ctx.body as any;
 
-	const entity = await db
-		.selectFrom("entities")
+	const campaign = await db
+		.selectFrom("campaigns")
 		.select(["id"])
 		.where("id", "=", ctx.params.id ?? "")
 		.where("owner_id", "=", user_id.toString())
 		.executeTakeFirst();
 
-	if (entity) {
+	if (campaign) {
 		const { success, data } = schema.safeParse(params);
 
 		if (success) {
@@ -75,15 +47,24 @@ export const routePOSTEntityUpdate: Handler = async (ctx) => {
 				data.language_code = null as any;
 			}
 
-			const values: Updateable<DB["entities"]> = {
+			if (
+				data.description?.trim().length === 0 ||
+				data.description === "none"
+			) {
+				data.description = null as any;
+			}
+
+			const values: Updateable<DB["campaigns"]> = {
 				category: data.category,
 				language_code: data.language_code,
-				ads: data.ads ? JSON.stringify(data.ads) : undefined,
+				name: data.name,
+				description: data.description,
+				is_active: data.is_active,
 			};
 
 			if (Object.values(values).some((value) => value !== undefined)) {
 				await db
-					.updateTable("entities")
+					.updateTable("campaigns")
 					.set(values)
 					.where("id", "=", ctx.params.id ?? "")
 					.where("owner_id", "=", user_id.toString())
@@ -98,7 +79,7 @@ export const routePOSTEntityUpdate: Handler = async (ctx) => {
 			return {
 				status: "failed",
 				data: {
-					error: "Invalid Entity Data",
+					error: "Invalid Campaign Data",
 				},
 			};
 		}
@@ -107,7 +88,7 @@ export const routePOSTEntityUpdate: Handler = async (ctx) => {
 	return {
 		status: "failed",
 		data: {
-			error: "Entity not found",
+			error: "Campaign not found",
 		},
 	};
 };

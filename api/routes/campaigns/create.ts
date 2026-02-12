@@ -13,6 +13,11 @@ const schema = z.object({
 		.string()
 		.min(Limits.campaigns.name.minLength)
 		.max(Limits.campaigns.name.maxLength),
+	description: z
+		.string()
+		.min(Limits.campaigns.description.minLength)
+		.max(Limits.campaigns.description.maxLength)
+		.optional(),
 });
 
 export const routePOSTCampaignsCreate: Handler = async (ctx) => {
@@ -36,6 +41,7 @@ export const routePOSTCampaignsCreate: Handler = async (ctx) => {
 				category: data.category,
 				language_code: data.language_code,
 				name: data.name,
+				description: data.description,
 				owner_id: user_id,
 			})
 			.returning("id")

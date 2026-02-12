@@ -1,4 +1,5 @@
 import { AnimatedEmojis, sendMessage } from "nyx-bot-client";
+import { CustomEmojiPacks } from "../information/emoji";
 import { db } from "./database";
 import { env } from "./env";
 import { match } from "./helpers";
@@ -65,7 +66,7 @@ export const createNotification = async (notification: Notification) => {
 						],
 						[
 							"warning",
-							`<tg-emoji emoji-id="${AnimatedEmojis["‼️"]}">‼️</tg-emoji>`,
+							`<tg-emoji emoji-id="${CustomEmojiPacks.custom.danger}">⚠️</tg-emoji>`,
 						],
 						[
 							"error",

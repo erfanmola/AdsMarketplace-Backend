@@ -57,6 +57,7 @@ const handlerPrivateStateCampaignBannerMessage: BotPipeline<
 										"message.private.commands.campaignBanner.confirm.confirm",
 									),
 									callback_data: `campaign-banner-confirm-${params.id}`,
+									style: "success",
 								},
 								{
 									text: t(
@@ -64,6 +65,7 @@ const handlerPrivateStateCampaignBannerMessage: BotPipeline<
 										"message.private.commands.campaignBanner.confirm.cancel",
 									),
 									callback_data: "campaign-banner-cancel",
+									style: "danger",
 								},
 							],
 						],

@@ -11,7 +11,11 @@ export const Limits = {
 	campaigns: {
 		name: {
 			minLength: 3,
-			maxLength: 24,
+			maxLength: 32,
+		},
+		description: {
+			minLength: 0,
+			maxLength: 256,
 		},
 	},
 	adType: {

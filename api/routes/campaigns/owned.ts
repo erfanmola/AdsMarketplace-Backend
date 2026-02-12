@@ -10,7 +10,14 @@ export const routeGETCampaignsOwned: Handler = async (ctx) => {
 
 	const campaigns = await db
 		.selectFrom("campaigns")
-		.select(["id", "category", "language_code", "name", "message_id"])
+		.select([
+			"id",
+			"category",
+			"language_code",
+			"name",
+			"message_id",
+			"is_active",
+		])
 		.where("owner_id", "=", user_id.toString())
 		.limit(PostsPerPage.campaigns.owned)
 		.offset(offset)

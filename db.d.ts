@@ -28,7 +28,9 @@ export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 export interface Campaigns {
   category: string | null;
   created_at: Generated<Timestamp>;
+  description: string | null;
   id: Generated<string>;
+  is_active: Generated<boolean>;
   language_code: string | null;
   message_id: Int8 | null;
   name: string;

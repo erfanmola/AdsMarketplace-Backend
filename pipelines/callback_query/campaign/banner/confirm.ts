@@ -68,6 +68,7 @@ export const handlerCallbackQueryCampaignBannerConfirm: BotPipeline<
 											"message.private.commands.campaignBanner.success.button",
 										),
 										url: `${miniAppInternalURL}?start_app=campaign-${campaign.id}`,
+										style: "primary",
 									},
 								],
 							],
