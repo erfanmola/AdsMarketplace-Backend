@@ -8,6 +8,7 @@ import { routePOSTAuthorize } from "./routes/authorize";
 import { routePOSTBotWebhook } from "./routes/bot-webhook";
 import { routeGETCampaign } from "./routes/campaigns/campaign";
 import { routePOSTCampaignsCreate } from "./routes/campaigns/create";
+import { routePOSTCampaignsOffer } from "./routes/campaigns/offer";
 import { routeGETCampaignsOwned } from "./routes/campaigns/owned";
 import { routePOSTCampaignsUpdate } from "./routes/campaigns/update";
 import { routeGETDefault } from "./routes/default";
@@ -37,7 +38,8 @@ export const initializeAPI = async () => {
 		.get("/campaigns/:id", routeGETCampaign)
 		.get("/campaigns/owned/:offset", routeGETCampaignsOwned)
 		.post("/campaigns/create", routePOSTCampaignsCreate)
-		.post("/campaigns/:id/update", routePOSTCampaignsUpdate);
+		.post("/campaigns/:id/update", routePOSTCampaignsUpdate)
+		.post("/campaigns/:id/offer", routePOSTCampaignsOffer);
 
 	const regularRoutes = new Elysia()
 		.get("/", routeGETDefault)

@@ -1,3 +1,4 @@
+import { AnimatedEmojis } from "nyx-bot-client";
 import { CustomEmojiPacks } from "../information/emoji";
 
 const dictionary = {
@@ -26,6 +27,14 @@ const dictionary = {
 						mediaGroup: `<tg-emoji emoji-id="${CustomEmojiPacks.duck.forbidden}">🚫</tg-emoji> We don’t support media groups at the moment. Please send text, a photo, or a video.\n\nTo cancel, use /start.`,
 					},
 				},
+			},
+		},
+	},
+	offers: {
+		campaigns: {
+			text: `<tg-emoji emoji-id="${AnimatedEmojis["📬"]}">📬</tg-emoji> <b>New campaign offer</b>\n\n{chat_name} has expressed readiness to participate in {campaign_name}.`,
+			button: {
+				view: "View Offer",
 			},
 		},
 	},
