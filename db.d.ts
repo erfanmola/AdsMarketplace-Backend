@@ -75,18 +75,32 @@ export interface Notifications {
 export interface Offers {
   campaign_id: string;
   created_at: Generated<Timestamp>;
-  duration: number | null;
+  duration: number;
   entity_id: string;
   from_id: Int8;
   id: Generated<string>;
   price: Numeric;
-  start_at: Timestamp | null;
+  start_at: Timestamp;
   status: Generated<number>;
-  to_id: Int8 | null;
-  topic_in: Int8 | null;
-  topic_out: Int8 | null;
-  transaction_in: string | null;
-  transaction_out: string | null;
+  to_id: Int8;
+  topic_in: Int8;
+  topic_out: Int8;
+  transaction_in: string;
+  transaction_out: string;
+  type: string;
+  updated_at: Generated<Timestamp>;
+}
+
+export interface Schedules {
+  chat_id: Int8;
+  created_at: Generated<Timestamp>;
+  duration: number;
+  id: Generated<string>;
+  message_id: Int8;
+  offer_id: string;
+  sent_message_id: Int8 | null;
+  start_at: Timestamp;
+  status: Generated<number>;
   type: string;
   updated_at: Generated<Timestamp>;
 }
@@ -130,6 +144,7 @@ export interface DB {
   entities: Entities;
   notifications: Notifications;
   offers: Offers;
+  schedules: Schedules;
   transactions: Transactions;
   users: Users;
   verification_requests: VerificationRequests;

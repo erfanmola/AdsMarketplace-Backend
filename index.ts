@@ -5,6 +5,7 @@ import { handlerCallbackQueryAnalytics } from "./pipelines/callback_query/analyt
 import { handlerCallbackQueryCampaign } from "./pipelines/callback_query/campaign";
 import { handlerCallbackQueryDefault } from "./pipelines/callback_query/default";
 import { handlerCallbackQueryFlood } from "./pipelines/callback_query/flood";
+import { handlerCallbackQueryOffer } from "./pipelines/callback_query/offer";
 import { handlerInlineQueryAnalytics } from "./pipelines/inline_query/analytics";
 import { handlerInlineQueryDefault } from "./pipelines/inline_query/default";
 import { handlerInlineQueryFlood } from "./pipelines/inline_query/flood";
@@ -31,6 +32,7 @@ client.initialize({
 		callback_query: [
 			handlerCallbackQueryAnalytics,
 			handlerCallbackQueryFlood,
+			handlerCallbackQueryOffer,
 			handlerCallbackQueryCampaign,
 			handlerCallbackQueryDefault,
 		],

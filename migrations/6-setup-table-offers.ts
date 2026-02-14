@@ -24,9 +24,9 @@ export async function up(db: Kysely<any>) {
       type text NOT NULL,
 
       -- duration in seconds
-      duration integer,
+      duration integer NOT NULL,
 
-      start_at timestamptz,
+      start_at timestamptz NOT NULL,
 
       transaction_in uuid NOT NULL,
       transaction_out uuid NOT NULL,

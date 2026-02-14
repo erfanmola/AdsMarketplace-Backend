@@ -4,11 +4,13 @@ import { handlerMessagePrivateCommands } from "./private/commands";
 import { handlerMessagePrivateDefault } from "./private/default";
 import { handlerMessagePrivateFlood } from "./private/flood";
 import { handlerMessagePrivateStates } from "./private/state";
+import { handlerMessageTopics } from "./private/topic";
 import { handlerMessagePrivateUser } from "./private/user";
 
 const pipelines: BotPipeline<"message", DBSchema>[] = [
 	handlerMessagePrivateFlood,
 	handlerMessagePrivateUser,
+	handlerMessageTopics,
 	handlerMessagePrivateCommands,
 	handlerMessagePrivateStates,
 	handlerMessagePrivateDefault,

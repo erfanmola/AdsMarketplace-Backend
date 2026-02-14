@@ -79,6 +79,7 @@ export const routePOSTEntitiesOffer: Handler = async (ctx) => {
 		.where("campaign_id", "=", campaign.id)
 		.where("entity_id", "=", entity.id)
 		.where("type", "=", data.type)
+		.where("status", "=", 0)
 		.execute();
 
 	if (offers.length > 0) {
