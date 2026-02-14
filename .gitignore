@@ -37,3 +37,6 @@ app.log
 
 sessions/*
 !sessions/.gitkeep
+
+gallery.json
+gallery-generator.ts

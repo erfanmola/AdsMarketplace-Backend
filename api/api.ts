@@ -16,6 +16,7 @@ import { routeGETEntity } from "./routes/entities/entity";
 import { routePOSTEntitiesOffer } from "./routes/entities/offer";
 import { routeGETEntitiesOwned } from "./routes/entities/owned";
 import { routePOSTEntityUpdate } from "./routes/entities/update";
+import { routeGETGallery } from "./routes/gallery";
 import { routeGETHealth } from "./routes/health";
 import { handlerWSClose, handlerWSMessage, handlerWSOpen } from "./routes/ws";
 
@@ -30,6 +31,8 @@ export const initializeAPI = async () => {
 
 	const jwtGuardedRoutes = new Elysia()
 		.use(pluginJWT)
+		.get("/gallery", routeGETGallery)
+
 		// Entities
 		.get("/entities/:id", routeGETEntity)
 		.get("/entities/owned/:offset", routeGETEntitiesOwned)
