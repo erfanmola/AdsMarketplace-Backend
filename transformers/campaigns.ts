@@ -10,6 +10,7 @@ export const transformOwnedCampaignAPI = (
 		language_code,
 		message_id,
 		is_active,
+		is_verified,
 		description,
 	} = campaign;
 
@@ -21,6 +22,7 @@ export const transformOwnedCampaignAPI = (
 		description,
 		is_ready: Boolean(message_id),
 		is_active,
+		is_verified,
 	};
 };
 
@@ -34,6 +36,7 @@ export const transformCampaignAPI = (
 		language_code,
 		message_id,
 		is_active,
+		is_verified,
 		description,
 	} = campaign;
 
@@ -46,6 +49,7 @@ export const transformCampaignAPI = (
 		role: "viewer",
 		is_ready: Boolean(message_id),
 		is_active,
+		is_verified,
 	};
 };
 
@@ -59,6 +63,7 @@ export const transformCampaignOwnerAPI = (
 		language_code,
 		message_id,
 		is_active,
+		is_verified,
 		description,
 	} = campaign;
 
@@ -71,5 +76,6 @@ export const transformCampaignOwnerAPI = (
 		role: "owner",
 		is_ready: Boolean(message_id),
 		is_active,
+		is_verified,
 	};
 };

@@ -33,6 +33,7 @@ export interface Campaigns {
   description: string | null;
   id: Generated<string>;
   is_active: Generated<boolean>;
+  is_verified: Generated<boolean | null>;
   language_code: string | null;
   message_id: Int8 | null;
   name: string;

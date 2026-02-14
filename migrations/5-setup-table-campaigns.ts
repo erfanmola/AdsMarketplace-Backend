@@ -15,6 +15,7 @@ export async function up(db: Kysely<any>) {
       message_id bigint,
 
       is_active boolean NOT NULL DEFAULT true,
+      is_verified boolean NOT NULL DEFAULT false,
 
       created_at timestamptz NOT NULL DEFAULT now(),
       updated_at timestamptz NOT NULL DEFAULT now()
