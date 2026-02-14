@@ -55,7 +55,7 @@ export const routePOSTCampaignsCreate: Handler = async (ctx) => {
 
 	return {
 		status: "failed",
-		data: {
+		result: {
 			error: "Error creating campaign",
 		},
 	};

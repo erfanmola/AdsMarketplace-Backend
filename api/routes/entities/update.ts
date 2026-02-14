@@ -20,11 +20,6 @@ const schema = z.object({
 					active: z.boolean(),
 					period: z.object({
 						unit: z.union([
-							z.literal(1), // 1 Hour
-							z.literal(2), // 2 Hours
-							z.literal(3), // 3 Hours
-							z.literal(4), // 4 Hours
-							z.literal(6), // 6 Hours
 							z.literal(8), // 8 Hours
 							z.literal(12), // 12 Hours
 							z.literal(24), // 24 Hours
@@ -33,11 +28,6 @@ const schema = z.object({
 							z.literal(24), // 24 Hours
 							z.literal(48), // 48 Hours
 							z.literal(72), // 72 Hours
-							z.literal(96), // 96 Hours
-							z.literal(120), // 120 Hours
-							z.literal(144), // 144 Hours
-							z.literal(168), // 168 Hours
-							z.literal(192), // 192 Hours
 						]),
 					}),
 					price: z.object({
@@ -97,7 +87,7 @@ export const routePOSTEntityUpdate: Handler = async (ctx) => {
 		} else {
 			return {
 				status: "failed",
-				data: {
+				result: {
 					error: "Invalid Entity Data",
 				},
 			};
@@ -106,7 +96,7 @@ export const routePOSTEntityUpdate: Handler = async (ctx) => {
 
 	return {
 		status: "failed",
-		data: {
+		result: {
 			error: "Entity not found",
 		},
 	};

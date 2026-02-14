@@ -23,6 +23,8 @@ export type JsonPrimitive = boolean | number | string | null;
 
 export type JsonValue = JsonArray | JsonObject | JsonPrimitive;
 
+export type Numeric = ColumnType<string, number | string, number | string>;
+
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
 export interface Campaigns {
@@ -77,15 +79,20 @@ export interface Offers {
   entity_id: string;
   from_id: Int8;
   id: Generated<string>;
-  price: Int8;
+  price: Numeric;
   start_at: Timestamp | null;
   status: Generated<number>;
+  to_id: Int8 | null;
+  topic_in: Int8 | null;
+  topic_out: Int8 | null;
+  transaction_in: string | null;
+  transaction_out: string | null;
   type: string;
   updated_at: Generated<Timestamp>;
 }
 
 export interface Transactions {
-  amount: Int8;
+  amount: Numeric;
   created_at: Generated<Timestamp>;
   description: string | null;
   from_address: string | null;

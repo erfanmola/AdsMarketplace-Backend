@@ -61,14 +61,13 @@ export const transformEntityAPI = (entity: Partial<DBSchema["entities"]>) => {
 		"channel",
 	);
 
-	const transformedStats = match(
-		Number(type),
-		[
-			[0, transformEntityChannelCharts(statistic)],
-			[1, undefined],
-		],
-		undefined,
-	);
+	let transformedStats: any;
+
+	if (Number(type) === 0) {
+		transformedStats = transformEntityChannelCharts(statistic);
+	} else if (Number(type) === 1) {
+		transformedStats = transformEntityGroupCharts(statistic);
+	}
 
 	const ads = transformEntityAd(Number(type), ad as any);
 
@@ -79,7 +78,7 @@ export const transformEntityAPI = (entity: Partial<DBSchema["entities"]>) => {
 		is_active,
 		is_verified,
 		type: typeString,
-		role: "user",
+		role: "viewer",
 		chat_id,
 		username,
 		statistic: transformedStats,

@@ -30,7 +30,7 @@ export const routeGETEntity: Handler = async (ctx) => {
 
 	return {
 		status: "failed",
-		data: {
+		result: {
 			error: "Entity not found",
 		},
 	};

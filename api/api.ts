@@ -13,6 +13,7 @@ import { routeGETCampaignsOwned } from "./routes/campaigns/owned";
 import { routePOSTCampaignsUpdate } from "./routes/campaigns/update";
 import { routeGETDefault } from "./routes/default";
 import { routeGETEntity } from "./routes/entities/entity";
+import { routePOSTEntitiesOffer } from "./routes/entities/offer";
 import { routeGETEntitiesOwned } from "./routes/entities/owned";
 import { routePOSTEntityUpdate } from "./routes/entities/update";
 import { routeGETHealth } from "./routes/health";
@@ -31,8 +32,9 @@ export const initializeAPI = async () => {
 		.use(pluginJWT)
 		// Entities
 		.get("/entities/:id", routeGETEntity)
-		.post("/entities/:id/update", routePOSTEntityUpdate)
 		.get("/entities/owned/:offset", routeGETEntitiesOwned)
+		.post("/entities/:id/update", routePOSTEntityUpdate)
+		.post("/entities/:id/offer", routePOSTEntitiesOffer)
 
 		// Campaigns;
 		.get("/campaigns/:id", routeGETCampaign)

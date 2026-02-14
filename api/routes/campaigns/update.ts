@@ -78,7 +78,7 @@ export const routePOSTCampaignsUpdate: Handler = async (ctx) => {
 		} else {
 			return {
 				status: "failed",
-				data: {
+				result: {
 					error: "Invalid Campaign Data",
 				},
 			};
@@ -87,7 +87,7 @@ export const routePOSTCampaignsUpdate: Handler = async (ctx) => {
 
 	return {
 		status: "failed",
-		data: {
+		result: {
 			error: "Campaign not found",
 		},
 	};

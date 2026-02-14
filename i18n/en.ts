@@ -32,9 +32,35 @@ const dictionary = {
 	},
 	offers: {
 		campaigns: {
-			text: `<tg-emoji emoji-id="${AnimatedEmojis["📬"]}">📬</tg-emoji> <b>New campaign offer</b>\n\n{chat_name} has expressed readiness to participate in {campaign_name}.`,
+			text: `<tg-emoji emoji-id="${AnimatedEmojis["📬"]}">📬</tg-emoji> <b>New campaign offer</b>\n\n<b>{chat_name}</b> has expressed readiness to participate in <b>{campaign_name}</b>.`,
 			button: {
 				view: "View Offer",
+			},
+		},
+		entities: {
+			formatters: {
+				duration: "{hour} Hours",
+				types: {
+					"channel-post": "Channel Post",
+					"channel-story": "Channel Story",
+					"group-pin": "Group Pin",
+				},
+			},
+			messages: {
+				in: {
+					initial: `<tg-emoji emoji-id="${AnimatedEmojis["📣"]}">📣</tg-emoji> Ads Offer Sent\n\n<tg-emoji emoji-id="${AnimatedEmojis["🗂"]}">🗂</tg-emoji> Chat: <b>{chat}</b> (@{username})\n<tg-emoji emoji-id="${AnimatedEmojis["🗳"]}">🗳</tg-emoji> Type: <b>{type}</b>\n\n<tg-emoji emoji-id="${AnimatedEmojis["📆"]}">📆</tg-emoji> Date: <b>{date} UTC</b>\n<tg-emoji emoji-id="${AnimatedEmojis["⏳"]}">⏳</tg-emoji> Duration: <b>{duration}</b>\n<tg-emoji emoji-id="${AnimatedEmojis["💰"]}">💰</tg-emoji> Price: <b>{price} TON</b> <tg-emoji emoji-id="${CustomEmojiPacks.custom.ton}">💰</tg-emoji>\n\n<tg-emoji emoji-id="${AnimatedEmojis["💡"]}">💡</tg-emoji> In case of rejection or not accepting until the due date, you'll be refunded.\n\n<tg-emoji emoji-id="${AnimatedEmojis["💬"]}">💬</tg-emoji> You can directly send message to the chat owner from this topic, try it out!`,
+					buttons: {
+						entity: "View Entity",
+					},
+				},
+				out: {
+					initial: `<tg-emoji emoji-id="${AnimatedEmojis["📣"]}">📣</tg-emoji> New Ads Offer Received\n\n<tg-emoji emoji-id="${AnimatedEmojis["🗂"]}">🗂</tg-emoji> Chat: <b>{chat}</b> (@{username})\n<tg-emoji emoji-id="${AnimatedEmojis["🗳"]}">🗳</tg-emoji> Type: <b>{type}</b>\n\n<tg-emoji emoji-id="${AnimatedEmojis["📆"]}">📆</tg-emoji> Date: <b>{date} UTC</b>\n<tg-emoji emoji-id="${AnimatedEmojis["⏳"]}">⏳</tg-emoji> Duration: <b>{duration}</b>\n<tg-emoji emoji-id="${AnimatedEmojis["💰"]}">💰</tg-emoji> Price: <b>{price} TON</b> <tg-emoji emoji-id="${CustomEmojiPacks.custom.ton}">💰</tg-emoji>\n\n<tg-emoji emoji-id="${AnimatedEmojis["💡"]}">💡</tg-emoji> You'll be able to withdraw the money after the ads duration is done.\n\n<tg-emoji emoji-id="${AnimatedEmojis["💬"]}">💬</tg-emoji> You can directly send message to the offerer from this topic, try it out!`,
+					buttons: {
+						accept: "Accept Offer",
+						reject: "Reject Offer",
+						campaign: "View Campaign",
+					},
+				},
 			},
 		},
 	},
@@ -123,6 +149,16 @@ const dictionary = {
 							"The chat <b>{name}</b> no longer meets the requirements and has been deactivated. The bot and helper user have left the chat. Once the issues are resolved, you can activate it again.",
 					},
 				},
+			},
+		},
+		balance: {
+			increase: {
+				title: "Balance Charged",
+				text: `<tg-emoji emoji-id="${AnimatedEmojis["💰"]}">💰</tg-emoji> Your balance is increased by <b>{amount} TON</b> <tg-emoji emoji-id="${CustomEmojiPacks.custom.ton}">💰</tg-emoji>.`,
+			},
+			decrease: {
+				title: "Balance Spent",
+				text: `<tg-emoji emoji-id="${AnimatedEmojis["💸"]}">💸</tg-emoji> Your balance is spent by <b>{amount} TON</b> <tg-emoji emoji-id="${CustomEmojiPacks.custom.ton}">💰</tg-emoji>.`,
 			},
 		},
 	},

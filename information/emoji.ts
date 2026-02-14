@@ -8,6 +8,7 @@ export const CustomEmojiPacks = {
 	},
 	custom: {
 		danger: "5902362294041448273",
+		ton: "5406976471153545018",
 	},
 	solid: {
 		check: "5774022692642492953",

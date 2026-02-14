@@ -5,6 +5,7 @@ import { CategoriesMapped } from "../../information/categories";
 import { LanguagesMapped } from "../../information/languages";
 import { Limits } from "../../information/limit";
 import { transformUserAPI } from "../../transformers/user";
+import { getBalance } from "../../utils/balance";
 import { env } from "../../utils/env";
 import { compareObjects } from "../../utils/object";
 import { validateInitDataHash, validateInitDataTTL } from "../utils/tma";
@@ -80,9 +81,17 @@ export const routePOSTAuthorize: Handler = async (ctx) => {
 					.executeTakeFirst();
 			}
 
+			const balanceTotal = await getBalance(initData.user.id, true);
+			const balanceReal = await getBalance(initData.user.id, false);
+
 			return {
 				status: "success",
 				result: {
+					balance: {
+						total: balanceTotal,
+						real: balanceReal,
+						pending: Math.trunc((balanceTotal - balanceReal) * 100) / 100,
+					},
 					categories: CategoriesMapped.en,
 					languages: LanguagesMapped.en,
 					limits: Limits,

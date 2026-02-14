@@ -30,7 +30,7 @@ export const routeGETCampaign: Handler = async (ctx) => {
 
 	return {
 		status: "failed",
-		data: {
+		result: {
 			error: "Campaign not found",
 		},
 	};

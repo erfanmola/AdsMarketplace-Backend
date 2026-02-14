@@ -7,6 +7,7 @@ export async function up(db: Kysely<any>) {
 
       -- who made the offer
       from_id bigint NOT NULL,
+      to_id bigint NOT NULL,
 
       -- channel / entity the offer is for
       entity_id uuid NOT NULL,
@@ -17,7 +18,7 @@ export async function up(db: Kysely<any>) {
       -- 0 = pending, 1 = accepted, -1 = rejected, 2 = final
       status smallint NOT NULL DEFAULT 0,
 
-      price bigint NOT NULL,
+      price numeric(38, 18) NOT NULL,
 
       -- AdType
       type text NOT NULL,
@@ -27,14 +28,25 @@ export async function up(db: Kysely<any>) {
 
       start_at timestamptz,
 
+      transaction_in uuid NOT NULL,
+      transaction_out uuid NOT NULL,
+
+      topic_in bigint NOT NULL,
+      topic_out bigint NOT NULL,
+
       created_at timestamptz NOT NULL DEFAULT now(),
       updated_at timestamptz NOT NULL DEFAULT now()
     );
 
     -- Indexes
     CREATE INDEX offers_from_id_idx ON public.offers (from_id);
+    CREATE INDEX offers_to_id_idx ON public.offers (to_id);
     CREATE INDEX offers_entity_id_idx ON public.offers (entity_id);
     CREATE INDEX offers_campaign_id_idx ON public.offers (campaign_id);
+    CREATE INDEX offers_transaction_in_idx ON public.offers (transaction_in);
+    CREATE INDEX offers_transaction_out_idx ON public.offers (transaction_out);
+    CREATE INDEX offers_topic_in_idx ON public.offers (topic_in);
+    CREATE INDEX offers_topic_out_idx ON public.offers (topic_out);
     CREATE INDEX offers_status_idx ON public.offers (status);
     CREATE INDEX offers_type_idx ON public.offers (type);
     CREATE INDEX offers_created_at_idx
