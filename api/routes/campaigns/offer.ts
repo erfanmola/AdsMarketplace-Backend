@@ -44,7 +44,7 @@ export const routePOSTCampaignsOffer: Handler = async (ctx) => {
 							[
 								{
 									text: t("en", "offers.campaigns.button.view"),
-									url: `${miniAppInternalURL}?start_app=entity-${entity.id}`,
+									url: `${miniAppInternalURL}?startapp=entity-${entity.id}`,
 									style: "primary",
 								},
 							],

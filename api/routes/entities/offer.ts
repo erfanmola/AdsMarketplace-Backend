@@ -116,7 +116,7 @@ export const routePOSTEntitiesOffer: Handler = async (ctx) => {
 	}
 
 	const id = uuidv4();
-	const short_id = id.split("-")[0];
+	const short_id = id.split("-")[0]?.toUpperCase();
 
 	const resultTopicIn = await createForumTopic({
 		chat_id: user_id,
@@ -237,7 +237,7 @@ export const routePOSTEntitiesOffer: Handler = async (ctx) => {
 				[
 					{
 						text: t("en", "offers.entities.messages.in.buttons.entity"),
-						url: `${miniAppInternalURL}?start_app=entity-${entity.id}`,
+						url: `${miniAppInternalURL}?startapp=entity-${entity.id}`,
 						style: "primary",
 					},
 				],
@@ -307,8 +307,8 @@ export const routePOSTEntitiesOffer: Handler = async (ctx) => {
 			start_at: new Date(data.date),
 			topic_in: resultTopicIn.result.message_thread_id,
 			topic_out: resultTopicOut.result.message_thread_id,
-			transaction_in: transactionIn,
-			transaction_out: transactionOut,
+			transaction_in: transactionIn!,
+			transaction_out: transactionOut!,
 			status: 0,
 		})
 		.execute();

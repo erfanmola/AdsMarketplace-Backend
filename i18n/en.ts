@@ -62,8 +62,16 @@ const dictionary = {
 					},
 				},
 				sent: `<tg-emoji emoji-id="${AnimatedEmojis["✅"]}">✅</tg-emoji> Message sent`,
-				accepted: `<tg-emoji emoji-id="${AnimatedEmojis["✅"]}">✅</tg-emoji> Offer is accepted and will be automatically handled in <b>{date}</b> for <b>{duration}</b>, funds will be released afterwards.`,
+				accepted: `<tg-emoji emoji-id="${AnimatedEmojis["✅"]}">✅</tg-emoji> Offer is accepted and will be automatically handled in <b>{date} UTC</b> for <b>{duration}</b>, funds will be released afterwards.`,
 				rejected: `<tg-emoji emoji-id="${AnimatedEmojis["❌"]}">❌</tg-emoji> Offer is rejected and funds are returned.`,
+				success: {
+					"channel-post": {
+						text: `<tg-emoji emoji-id="${AnimatedEmojis["✅"]}">✅</tg-emoji> Ad is posted in the channel successfully.`,
+						buttons: {
+							view: "View Ad",
+						},
+					},
+				},
 			},
 		},
 	},

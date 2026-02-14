@@ -1,6 +1,7 @@
 import { type BotPipeline, NyxResponse } from "nyx-bot-client";
 import { Api } from "telegram";
 import type { DBSchema } from "../../schema";
+import { transformEntityAd } from "../../transformers/entities";
 import { db } from "../../utils/database";
 import { events } from "../../utils/events";
 import { getClient } from "../../utils/gramjs";
@@ -28,12 +29,18 @@ export const handlerMyChatMemberLeftOrKicked: BotPipeline<
 				"helper_user_id",
 				"owner_id",
 				"name",
+				"ads",
+				"type",
 			])
 			.where("chat_id", "=", message.chat.id.toString())
 			.executeTakeFirst();
 
 		if (entity) {
-			// TODO: Disable all ad types
+			const ads = transformEntityAd(Number(entity.type), entity.ads as any);
+
+			for (const ad of Object.values(ads)) {
+				ad.active = false;
+			}
 
 			await db
 				.updateTable("entities")
@@ -42,6 +49,7 @@ export const handlerMyChatMemberLeftOrKicked: BotPipeline<
 					is_bot_admin: false,
 					is_helper_admin: false,
 					is_verified: false,
+					ads: JSON.stringify(ads),
 				})
 				.where("chat_id", "=", message.chat.id.toString())
 				.execute();
