@@ -108,7 +108,7 @@ export const handleFinishScheduledAds = async () => {
 									message: t("en", "notifications.balance.increase.text", {
 										amount: (
 											Math.trunc(Number(offer.price) * 100) / 100
-										).toString(),
+										).toLocaleString(),
 									}),
 									title: t("en", "notifications.balance.increase.title"),
 									user_id: Number(offer.to_id),

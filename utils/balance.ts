@@ -35,7 +35,7 @@ export const createTransaction = async (
 				message: t("en", "notifications.balance.increase.text", {
 					amount: (
 						Math.trunc(Number(transaction.amount) * 100) / 100
-					).toString(),
+					).toLocaleString(),
 				}),
 				title: t("en", "notifications.balance.increase.title"),
 				user_id: Number(transaction.user_id),
@@ -46,7 +46,7 @@ export const createTransaction = async (
 				message: t("en", "notifications.balance.decrease.text", {
 					amount: Math.abs(
 						Math.trunc(Number(transaction.amount) * 100) / 100,
-					).toString(),
+					).toLocaleString(),
 				}),
 				title: t("en", "notifications.balance.decrease.title"),
 				user_id: Number(transaction.user_id),

@@ -7,7 +7,7 @@ export const transformSelfTransactionAPI = (
 
 	return {
 		id,
-		amount: Math.trunc((Number(amount) ?? 0) * 100) / 100,
+		amount: (Math.trunc((Number(amount) ?? 0) * 100) / 100).toLocaleString(),
 		pending,
 	};
 };

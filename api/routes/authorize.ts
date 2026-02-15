@@ -96,7 +96,9 @@ export const routePOSTAuthorize: Handler = async (ctx) => {
 					balance: {
 						total: balanceTotal,
 						real: balanceReal,
-						pending: Math.trunc((balanceTotal - balanceReal) * 100) / 100,
+						pending: (
+							Math.trunc((balanceTotal - balanceReal) * 100) / 100
+						).toLocaleString(),
 					},
 					categories: CategoriesMapped.en,
 					languages: LanguagesMapped.en,
