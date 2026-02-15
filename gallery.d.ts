@@ -52,13 +52,17 @@ export type GalleryRowEntityListItem = {
 
 export type GalleryRowSliderMini = GalleryRowBase<
 	"slider-mini",
-	{},
+	{
+		autoplayDelay?: number;
+	},
 	GalleryRowSliderMiniItem
 >;
 
 export type GalleryRowSliderFull = GalleryRowBase<
 	"slider-full",
-	{},
+	{
+		autoplayDelay?: number;
+	},
 	GalleryRowSliderFullItem
 >;
 

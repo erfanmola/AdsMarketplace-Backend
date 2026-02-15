@@ -1,9 +1,12 @@
 export const PostsPerPage = {
 	entities: {
-		owned: 10,
+		owned: 20,
 	},
 	campaigns: {
-		owned: 10,
+		owned: 20,
+	},
+	transactions: {
+		self: 20,
 	},
 };
 
