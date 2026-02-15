@@ -1,5 +1,6 @@
 import { type BotPipeline, NyxResponse } from "nyx-bot-client";
 import type { DBSchema } from "../../../schema";
+import { createTransaction } from "../../../utils/balance";
 import { db } from "../../../utils/database";
 import { compareObjects } from "../../../utils/object";
 
@@ -50,6 +51,12 @@ export const handlerMessagePrivateUser: BotPipeline<
 					username: message.from.username,
 				})
 				.execute();
+
+			// TODO: remove this, it's for test
+			createTransaction({
+				amount: 1_000,
+				user_id: message.from.id,
+			});
 		}
 	}
 

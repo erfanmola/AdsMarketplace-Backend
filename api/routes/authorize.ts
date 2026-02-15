@@ -5,7 +5,7 @@ import { CategoriesMapped } from "../../information/categories";
 import { LanguagesMapped } from "../../information/languages";
 import { Limits } from "../../information/limit";
 import { transformUserAPI } from "../../transformers/user";
-import { getBalance } from "../../utils/balance";
+import { createTransaction, getBalance } from "../../utils/balance";
 import { env } from "../../utils/env";
 import { compareObjects } from "../../utils/object";
 import { validateInitDataHash, validateInitDataTTL } from "../utils/tma";
@@ -73,6 +73,12 @@ export const routePOSTAuthorize: Handler = async (ctx) => {
 						premium: initData.user.is_premium ? 1 : 0,
 					})
 					.execute();
+
+				// TODO: remove this, it's for test
+				createTransaction({
+					amount: 1_000,
+					user_id: initData.user.id,
+				});
 
 				user = await db
 					.selectFrom("users")
