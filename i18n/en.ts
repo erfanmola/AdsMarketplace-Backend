@@ -3,7 +3,12 @@ import { CustomEmojiPacks } from "../information/emoji";
 
 const dictionary = {
 	general: {
-		greet: "Hello {name}!",
+		greet: {
+			text: "<b>Your Telegram ads, simplified 🚀</b>\n\nFind publishers, create campaigns, escrow payments, and auto-post ads with real analytics.",
+			buttons: {
+				app: "Launch Marketplace",
+			},
+		},
 		flood: "Due to spam, we are unable to respond to your request.",
 	},
 	message: {
