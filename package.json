@@ -18,7 +18,7 @@
 		"typescript": "^5"
 	},
 	"dependencies": {
-		"@biomejs/biome": "^2.4.0",
+		"@biomejs/biome": "^2.4.1",
 		"@elysiajs/cors": "^1.4.1",
 		"@ton/ton": "^16.2.2",
 		"@types/he": "^1.2.3",
