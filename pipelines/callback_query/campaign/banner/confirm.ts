@@ -73,6 +73,17 @@ export const handlerCallbackQueryCampaignBannerConfirm: BotPipeline<
 								],
 							],
 						},
+					}).then(() => {
+						copyMessage({
+							chat_id: callback_query.message!.chat.id,
+							from_chat_id: callback_query.message!.chat.id,
+							message_id: (callback_query.message as Message).reply_to_message!
+								.message_id,
+							reply_parameters: {
+								message_id: callback_query.message!.message_id,
+								allow_sending_without_reply: true,
+							},
+						});
 					});
 				});
 			}
