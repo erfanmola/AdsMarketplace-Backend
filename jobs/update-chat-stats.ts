@@ -21,11 +21,18 @@ export const jobUpdateChatStats: Job<{
 
 	try {
 		if (entity.type === 0) {
+			const channel = await client.invoke(
+				new Api.channels.GetFullChannel({
+					channel: await client.getEntity(entity.username),
+				}),
+			);
+
 			const result = await client.invoke(
 				new Api.stats.GetBroadcastStats({
 					channel: await client.getEntity(entity.username),
 					dark: true,
 				}),
+				(channel.fullChat as any).statsDc ?? undefined,
 			);
 
 			const boosts = await client.invoke(
@@ -45,6 +52,7 @@ export const jobUpdateChatStats: Job<{
 							new Api.stats.LoadAsyncGraph({
 								token: value.token,
 							}),
+							(channel.fullChat as any).statsDc ?? undefined,
 						);
 
 						if (graph) {
@@ -68,11 +76,18 @@ export const jobUpdateChatStats: Job<{
 				events.emit("entityUpdated", { id: entity.id });
 			}
 		} else if (entity.type === 1) {
+			const channel = await client.invoke(
+				new Api.channels.GetFullChannel({
+					channel: await client.getEntity(entity.username),
+				}),
+			);
+
 			const result = await client.invoke(
 				new Api.stats.GetMegagroupStats({
 					channel: await client.getEntity(entity.username),
 					dark: true,
 				}),
+				(channel.fullChat as any).statsDc ?? undefined,
 			);
 
 			const boosts = await client.invoke(
@@ -92,6 +107,7 @@ export const jobUpdateChatStats: Job<{
 							new Api.stats.LoadAsyncGraph({
 								token: value.token,
 							}),
+							(channel.fullChat as any).statsDc ?? undefined,
 						);
 
 						if (graph) {
